@@ -1,0 +1,66 @@
+name: flutter_base_project
+description: "A new Flutter project."
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.2
+
+
+#-------------------- PACKAGES ----------------------#
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+
+  # Utility Packages
+  get_it: ^8.0.3
+
+  # Icons
+  cupertino_icons: ^1.0.8
+
+  # State Management
+  flutter_bloc: ^9.0.0
+
+#-------------------- ./ PACKAGES END ----------------------#
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  #-------------------- LOCAL ASSETS ----------------------#
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  #-------------------- OTHER ASSETS ----------------------#
+    - .keys.json
+
+  #-------------------- LOCAL FONTS ----------------------#
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 800
