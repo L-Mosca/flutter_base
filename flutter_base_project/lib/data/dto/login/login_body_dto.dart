@@ -8,4 +8,11 @@ class LoginBodyDto {
   String toString() {
     return 'LoginBody{username: $username, password: $password}';
   }
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic> {};
+    data["username"] = username;
+    data["password"] = password;
+    return data;
+  }
 }

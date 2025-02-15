@@ -10,7 +10,7 @@ class SplashPage extends StatelessWidget {
       body: SafeArea(
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, "/home");
+            Navigator.pushNamed(context, "/login");
           },
           child: Container(color: AppColors.error),
         ),
