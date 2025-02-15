@@ -1,4 +1,4 @@
-import 'package:flutter_base_project/domain/dto/login/login_body_dto.dart';
+import 'package:flutter_base_project/data/dto/login/login_body_dto.dart';
 
 class LoginBody {
   String username;

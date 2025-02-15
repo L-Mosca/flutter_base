@@ -6,6 +6,15 @@ import 'package:flutter/services.dart';
 /* -- LIST OF Constants used in APIs -- */
 class APIConstants {
   static const String tSecretApiKey = "test";
+
+  // Fake Store API constants
+  static const baseUrl = "https://fakestoreapi.com";
+
+  // User
+  static const getGenericUser = "$baseUrl/users/1";
+
+  // Login
+  static const login = "$baseUrl/auth/login";
 }
 
 class GetKeys {
