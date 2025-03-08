@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/base/providers/theme_provider.dart';
 
-/// Enum that's define text style design
+/// Enum to define text style design
 enum TextType {
   headlineLarge,
   headlineMedium,
@@ -17,7 +17,7 @@ enum TextType {
   labelSmall,
 }
 
-/// Default text widget. By default use bodyMedium as text style.
+/// Default text widget. Set bodyMedium as default text style.
 ///
 /// [text] - Text message
 ///
@@ -38,6 +38,7 @@ enum TextType {
 /// [textType] - Text type (headline, body...)
 ///
 /// [decoration] - Text decoration
+///
 class BaseText extends StatelessWidget {
   const BaseText({
     super.key,
@@ -51,6 +52,7 @@ class BaseText extends StatelessWidget {
     this.textOverflow,
     this.textType,
     this.decoration,
+    this.height,
   });
 
   // Text setup
@@ -64,10 +66,11 @@ class BaseText extends StatelessWidget {
   final Color? fontDarkColor;
   final TextType? textType;
   final TextDecoration? decoration;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = context.actualIsDarkMode();
+    final isDarkMode = context.isDarkMode();
     final textStyle = _textStyle(context);
 
     return Text(
@@ -81,6 +84,7 @@ class BaseText extends StatelessWidget {
         fontSize: fontSize,
         color: _fontColor(isDarkMode),
         fontWeight: fontWeight,
+        height: height,
       ),
     );
   }
@@ -97,7 +101,7 @@ class BaseText extends StatelessWidget {
   }
 }
 
-extension MsTextExtensions on TextType {
+extension TextWidgetExtensions on TextType {
   TextStyle? getTextStyle(BuildContext context) {
     final style = Theme.of(context).textTheme;
 

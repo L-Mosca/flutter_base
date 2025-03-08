@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_base_project/base/page/base_stateless_page.dart';
 import 'package:flutter_base_project/ui/screens/login/bloc/login_bloc.dart';
 import 'package:flutter_base_project/ui/screens/login/bloc/login_event.dart';
 import 'package:flutter_base_project/ui/screens/login/bloc/login_state.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
+import 'package:flutter_base_project/ui/system_design/base_widgets/base_page.dart';
 
-class LoginPage extends BaseStatelessPage<LoginBloc, LoginEvent, LoginState> {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
-  void onPageChanged(BuildContext context, LoginState state) {
-
+  Widget build(BuildContext context) {
+    return BasePage<LoginBloc, LoginEvent, LoginState>(
+      listener: _onPageChange,
+      builder: _pageContent,
+    );
   }
 
-  @override
-  Widget pageContent(BuildContext context, LoginState state) {
-    return Container(color: AppColors.accent);
-  }
+  void _onPageChange(BuildContext context, LoginState state) {}
 
+  Widget _pageContent(BuildContext context, LoginState state) {
+    return SizedBox();
+  }
 }

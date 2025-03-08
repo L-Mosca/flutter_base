@@ -19,6 +19,7 @@ dependencies:
 
   # Utility Packages
   get_it: ^8.0.3
+  flutter_svg: ^2.0.17
 
   # Icons
   cupertino_icons: ^1.0.8
