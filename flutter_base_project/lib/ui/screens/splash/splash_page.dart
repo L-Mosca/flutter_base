@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
+import 'package:flutter_base_project/ui/screens/splash/bloc/splash_bloc.dart';
+import 'package:flutter_base_project/ui/screens/splash/bloc/splash_event.dart';
+import 'package:flutter_base_project/ui/screens/splash/bloc/splash_state.dart';
+import 'package:flutter_base_project/ui/system_design/base_widgets/base_page.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BasePage<SplashBloc, SplashEvent, SplashState>(
+      listener: _onPageChange,
+      builder: _pageContent,
+    );
+  }
+
+  void _onPageChange(BuildContext context, SplashState state) {}
+
+  Widget _pageContent(BuildContext context, SplashState state) {
     return Scaffold(
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, "/login");
-          },
-          child: Container(color: AppColors.error),
-        ),
-      ),
+      backgroundColor: Colors.grey,
+      body: Center(),
     );
   }
 }
