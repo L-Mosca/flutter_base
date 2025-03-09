@@ -15,6 +15,10 @@ class APIConstants {
 
   // Login
   static const login = "$baseUrl/auth/login";
+
+  // Products
+  static const getAllProducts = "$baseUrl/products";
+  static const getProduct = "$baseUrl/products/";
 }
 
 class GetKeys {
