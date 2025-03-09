@@ -7,24 +7,24 @@ import 'package:flutter/foundation.dart';
 abstract class BaseClient {
   final HttpClient client = HttpClient();
 
-  Future<Map<String, dynamic>> get({
+  Future<dynamic> get({
     required String url,
     Map<String, String>? headers,
   });
 
-  Future<Map<String, dynamic>> post({
-    required String url,
-    Map<String, String>? headers,
-    Object? body,
-  });
-
-  Future<Map<String, dynamic>> put({
+  Future<dynamic> post({
     required String url,
     Map<String, String>? headers,
     Object? body,
   });
 
-  Future<Map<String, dynamic>> delete({
+  Future<dynamic> put({
+    required String url,
+    Map<String, String>? headers,
+    Object? body,
+  });
+
+  Future<dynamic> delete({
     required String url,
     Map<String, String>? headers,
   });
@@ -47,7 +47,7 @@ abstract class BaseClient {
 }
 
 extension HttpClientRequestExtensions on HttpClientRequest {
-  Future<Map<String, dynamic>> getResponseBody() async {
+  Future<dynamic> getResponseBody() async {
     final response = await close();
     return response.body();
   }
@@ -71,7 +71,7 @@ extension HttpClientRequestExtensions on HttpClientRequest {
 }
 
 extension HttpClientResponseExtension on HttpClientResponse {
-  Future<Map<String, dynamic>> body() async {
+  Future<dynamic> body() async {
     final raw = await transform(utf8.decoder).join();
 
     if (kDebugMode) {
@@ -81,6 +81,6 @@ extension HttpClientResponseExtension on HttpClientResponse {
       log('\n==============================================================\n');
     }
 
-    return jsonDecode(raw) as Map<String, dynamic>;
+    return jsonDecode(raw);
   }
 }

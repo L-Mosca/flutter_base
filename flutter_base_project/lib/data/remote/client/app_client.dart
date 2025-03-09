@@ -2,7 +2,7 @@ import 'package:flutter_base_project/data/remote/client/base_client.dart';
 
 class AppClient extends BaseClient {
   @override
-  Future<Map<String, dynamic>> delete({
+  Future<dynamic> delete({
     required String url,
     Map<String, String>? headers,
   }) async {
@@ -13,7 +13,7 @@ class AppClient extends BaseClient {
   }
 
   @override
-  Future<Map<String, dynamic>> get({
+  Future<dynamic> get({
     required String url,
     Map<String, String>? headers,
   }) async {
@@ -25,7 +25,7 @@ class AppClient extends BaseClient {
   }
 
   @override
-  Future<Map<String, dynamic>> post({
+  Future<dynamic> post({
     required String url,
     Map<String, String>? headers,
     Object? body,
@@ -38,7 +38,7 @@ class AppClient extends BaseClient {
   }
 
   @override
-  Future<Map<String, dynamic>> put({
+  Future<dynamic> put({
     required String url,
     Map<String, String>? headers,
     Object? body,
