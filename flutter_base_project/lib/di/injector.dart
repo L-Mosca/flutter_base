@@ -1,4 +1,5 @@
 import 'package:flutter_base_project/di/modules/api_module.dart';
+import 'package:flutter_base_project/di/modules/data_module.dart';
 import 'package:flutter_base_project/di/modules/repository_module.dart';
 import 'package:get_it/get_it.dart';
 
@@ -23,9 +24,10 @@ class _GetItImpl implements Injector {
     _register();
   }
 
-  void _register() {
+  Future<void> _register() async {
     ApiModule.setup(getIt);
     RepositoriesModule.setup(getIt);
+    await DataModule.setup(getIt);
   }
 
   @override
