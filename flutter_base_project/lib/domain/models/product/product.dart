@@ -34,7 +34,7 @@ class Product {
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic> {};
+    final data = <String, dynamic>{};
     data["id"] = id;
     data["title"] = title;
     data["price"] = price;
@@ -42,5 +42,17 @@ class Product {
     data["category"] = category;
     data["image"] = image;
     return data;
+  }
+}
+
+extension ProductListExtension on dynamic {
+  List<Product> toProductList() {
+    final list = <Product>[];
+    if (this != null) {
+      forEach((key, value) {
+        list.add(Product.fromJson(value));
+      });
+    }
+    return list;
   }
 }
