@@ -11,23 +11,24 @@ import 'package:get_it/get_it.dart';
 /// Neste caso, preferi por utilizar uma biblioteca pronta, porque ela tem algumas otimizações e ganhos
 /// de performance em tempo de execução que são praticamente inviáveis de serem implementados manualmente.
 abstract class Injector {
-  // 'T extends Object' impede que o usuário coloque algo nulo ou dinâmico
   T get<T extends Object>();
 
   void replace<T extends Object>(T instance);
+
+  Future<void> initialize();
 }
 
 class _GetItImpl implements Injector {
   final getIt = GetIt.instance;
 
-  _GetItImpl() {
-    _register();
-  }
+  _GetItImpl();
 
-  Future<void> _register() async {
+  /// Inicializa todas as dependências
+  @override
+  Future<void> initialize() async {
     ApiModule.setup(getIt);
-    RepositoriesModule.setup(getIt);
     await DataModule.setup(getIt);
+    RepositoriesModule.setup(getIt);
   }
 
   @override

@@ -1,8 +1,13 @@
 import 'package:flutter_base_project/domain/models/cart/cart.dart';
 import 'package:flutter_base_project/domain/models/payment/credit_card.dart';
 import 'package:flutter_base_project/domain/models/product/product.dart';
+import 'package:flutter_base_project/domain/models/user/user.dart';
 
 abstract interface class PreferencesHelper {
+  // User
+  Future<User?> getUser();
+  Future<void> saveUser({required User user});
+
   // Cart
   Future<Cart> getCart();
   Future<void> createCart({required Cart cart});
