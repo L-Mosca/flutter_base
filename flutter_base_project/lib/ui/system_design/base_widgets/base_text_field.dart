@@ -162,7 +162,7 @@ class _BaseTextFieldState extends State<BaseTextField> {
   OutlineInputBorder _defaultBorder(bool isDarkMode) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(
-        widget.borderRadius ?? AppSizes.borderRadiusLg,
+        widget.borderRadius ?? AppSizes.radiusLarge,
       ),
       borderSide: BorderSide(
         color: _borderColor(isDarkMode),

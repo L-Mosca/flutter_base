@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               BaseText(
-                text: context.appLocalizations.appName,
+                text: context.strings.appName,
               ),
               const SizedBox(height: 100.0),
               ElevatedButton(

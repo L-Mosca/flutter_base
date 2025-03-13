@@ -10,6 +10,11 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
 
   LoginBloc(this._userRepository) : super(const LoginState()) {
     on<LoginInitEvent>(_init);
+    on<LoginUpdateEmailEvent>(_updateEmail);
+    on<LoginUpdatePasswordEvent>(_updatePassword);
+    on<LoginSignInEvent>(_signIn);
+    on<LoginFetchUserEvent>(_fetchGenericUser);
+    on<LoginResetListenerEvent>(_resetListener);
   }
 
   void _init(LoginInitEvent event, Emitter<LoginState> emitter) async {
@@ -21,5 +26,51 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
       },
       exceptionHandler: (exception) {},
     );
+  }
+
+  void _updateEmail(
+    LoginUpdateEmailEvent event,
+    Emitter<LoginState> emitter,
+  ) async {
+    emitter(state.updateEmail(event.email));
+  }
+
+  void _updatePassword(
+    LoginUpdatePasswordEvent event,
+    Emitter<LoginState> emitter,
+  ) async {
+    emitter(state.updatePassword(event.password));
+  }
+
+  void _signIn(
+    LoginSignInEvent event,
+    Emitter<LoginState> emitter,
+  ) async {
+    await defaultLaunch(
+      function: () async {},
+      exceptionHandler: (exception) {},
+    );
+  }
+
+  void _fetchGenericUser(
+    LoginFetchUserEvent event,
+    Emitter<LoginState> emitter,
+  ) async {
+    await defaultLaunch(
+      function: () async {
+        final user = await _userRepository.getGenericUser();
+        emitter(state.copyWith(email: user.email, password: user.password));
+      },
+      exceptionHandler: (exception) {
+        emitter(state.copyWith(listener: LoginListener.loginError));
+      },
+    );
+  }
+
+  void _resetListener(
+    LoginResetListenerEvent event,
+    Emitter<LoginState> emitter,
+  ) async {
+    emitter(state.resetListener);
   }
 }

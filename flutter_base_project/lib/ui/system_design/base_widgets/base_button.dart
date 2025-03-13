@@ -75,7 +75,7 @@ class _BaseButtonState extends State<BaseButton> {
 
   ShapeBorder _borderShape(bool isDarkMode) => RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-          widget.borderRadius ?? AppSizes.borderRadiusLg,
+          widget.borderRadius ?? AppSizes.radiusLarge,
         ),
         side: BorderSide(
           color: _borderColor(isDarkMode),
@@ -95,8 +95,8 @@ class _BaseButtonState extends State<BaseButton> {
   EdgeInsets get _buttonPadding =>
       widget.padding ??
       EdgeInsets.symmetric(
-        horizontal: AppSizes.lg,
-        vertical: AppSizes.md,
+        horizontal: AppSizes.marginLarge,
+        vertical: AppSizes.marginMedium,
       );
 
   Color _borderColor(bool isDarkMode) {
