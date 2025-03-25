@@ -106,6 +106,7 @@ extension UserDtoExtension on UserDto? {
       phone: this?.phone ?? "",
       email: this?.email ?? "",
       password: this?.password ?? "",
+      username: this?.userName ?? "",
     );
   }
 }

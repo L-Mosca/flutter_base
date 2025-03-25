@@ -12,7 +12,7 @@ class BaseSnackBar {
     return SnackBar(
       content: _defaultTextDesign(message),
       duration: AppConstants.snackBarDuration,
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.accent,
       behavior: SnackBarBehavior.fixed,
       elevation: 8.0,
       shape: _defaultShapeRadius,

@@ -4,6 +4,7 @@ class User {
   String phone;
   String email;
   String password;
+  String username;
 
   User({
     required this.id,
@@ -11,11 +12,12 @@ class User {
     required this.phone,
     required this.email,
     required this.password,
+    required this.username,
   });
 
   @override
   String toString() {
-    return 'User{id: $id, name: $name, phone: $phone, email: $email, password: $password}';
+    return 'User{id: $id, name: $name, phone: $phone, email: $email, password: $password, username: $username}';
   }
 
   User.fromJson(Map<String, dynamic> json)
@@ -23,7 +25,8 @@ class User {
         name = json["name"],
         phone = json["phone"],
         email = json["email"],
-        password = json["password"];
+        password = json["password"],
+        username = json["username"];
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic> {};
@@ -32,6 +35,7 @@ class User {
     data["phone"] = phone;
     data["email"] = email;
     data["password"] = password;
+    data["username"] = username;
     return data;
   }
 }

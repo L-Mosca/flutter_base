@@ -7,17 +7,35 @@ import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 class BaseTextField extends StatefulWidget {
   const BaseTextField({
     super.key,
+
+    // General Args
     this.height,
     this.width,
     required this.hintText,
-    this.text,
+    this.margin,
     required this.onTextChanged,
+    this.borderWidth,
+    this.keyboardType,
+    this.maxLines,
+    this.onSubmitted,
+    this.controller,
+    this.focusNode,
+    this.inputFormatters,
+    this.textInputAction,
+    this.obscureText,
+    this.contentPadding,
+    this.onEditingComplete,
+
+    // Font
+    this.text,
     this.fontSize,
     this.decoration,
     this.fontWeight,
     this.fontHeight,
     this.fontLightColor,
     this.fontDarkColor,
+
+    // Border
     this.borderRadius,
     this.borderLightColor,
     this.borderDarkColor,
@@ -27,24 +45,31 @@ class BaseTextField extends StatefulWidget {
     this.borderErrorDarkColor,
     this.borderEnabledLightColor,
     this.borderEnabledDarkColor,
-    this.margin,
-    this.keyboardType,
-    this.maxLines,
-    this.onSubmitted,
-    this.controller,
-    this.focusNode,
-    this.inputFormatters,
-    this.textInputAction,
-    this.borderWidth,
+
+    // Icon
+    this.suffixIcon,
+    this.prefixIcon,
   });
 
+  // General Args
   final double? height;
   final double? width;
   final String hintText;
   final EdgeInsets? margin;
   final ValueChanged<String> onTextChanged;
   final double? borderWidth;
+  final TextInputType? keyboardType;
+  final int? maxLines;
+  final void Function(String)? onSubmitted;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputAction? textInputAction;
+  final bool? obscureText;
+  final EdgeInsets? contentPadding;
+  final void Function()? onEditingComplete;
 
+  // Font
   final String? text;
   final double? fontSize;
   final TextDecoration? decoration;
@@ -53,28 +78,20 @@ class BaseTextField extends StatefulWidget {
   final Color? fontLightColor;
   final Color? fontDarkColor;
 
+  // Border
   final double? borderRadius;
-
   final Color? borderLightColor;
   final Color? borderDarkColor;
-
   final Color? borderFocusedLightColor;
   final Color? borderFocusedDarkColor;
-
   final Color? borderErrorLightColor;
   final Color? borderErrorDarkColor;
-
   final Color? borderEnabledLightColor;
   final Color? borderEnabledDarkColor;
 
-  final TextInputType? keyboardType;
-  final int? maxLines;
-  final void Function(String)? onSubmitted;
-
-  final TextEditingController? controller;
-  final FocusNode? focusNode;
-  final List<TextInputFormatter>? inputFormatters;
-  final TextInputAction? textInputAction;
+  // Icon
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
 
   @override
   State<BaseTextField> createState() => _BaseTextFieldState();
@@ -85,9 +102,18 @@ class _BaseTextFieldState extends State<BaseTextField> {
   final FocusNode _focusNode = FocusNode();
 
   @override
+  void didUpdateWidget(covariant BaseTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.text != oldWidget.text || widget.text != _controller.text) {
+      _controller.text = widget.text ?? "";
+    }
+  }
+
+  @override
   void initState() {
-    _controller.text = widget.text ?? '';
     super.initState();
+    _controller.text = widget.text ?? "";
   }
 
   @override
@@ -101,24 +127,20 @@ class _BaseTextFieldState extends State<BaseTextField> {
   Widget build(BuildContext context) {
     final isDarkMode = context.isDarkMode();
     final textStyle = _textStyle(context);
-    _controller.text = widget.text ?? "";
 
-    return Container(
-      width: widget.width,
-      height: widget.height,
-      margin: widget.margin,
-      child: TextField(
-        focusNode: widget.focusNode ?? _focusNode,
-        controller: widget.controller ?? _controller,
-        style: _defaultTextStyle(textStyle, isDarkMode),
-        decoration: _hintStyle(textStyle, isDarkMode),
-        onChanged: _onTextChanged,
-        maxLines: widget.maxLines,
-        keyboardType: widget.keyboardType ?? TextInputType.text,
-        textInputAction: widget.textInputAction ?? TextInputAction.next,
-        onSubmitted: widget.onSubmitted,
-        inputFormatters: widget.inputFormatters,
-      ),
+    return TextField(
+      focusNode: widget.focusNode ?? _focusNode,
+      controller: widget.controller ?? _controller,
+      style: _defaultTextStyle(textStyle, isDarkMode),
+      decoration: _hintStyle(textStyle, isDarkMode),
+      onChanged: _onTextChanged,
+      maxLines: widget.maxLines,
+      keyboardType: widget.keyboardType ?? TextInputType.text,
+      textInputAction: widget.textInputAction ?? TextInputAction.next,
+      onSubmitted: widget.onSubmitted,
+      inputFormatters: widget.inputFormatters,
+      obscureText: widget.obscureText ?? false,
+      onEditingComplete: widget.onEditingComplete,
     );
   }
 
@@ -131,53 +153,79 @@ class _BaseTextFieldState extends State<BaseTextField> {
       decorationColor: _fontColor(isDarkMode),
       fontSize: widget.fontSize,
       color: _fontColor(isDarkMode),
-      fontWeight: widget.fontWeight,
+      fontWeight: widget.fontWeight ?? FontWeight.w500,
       height: widget.height,
     );
   }
 
   Color? _fontColor(bool isDarkMode) {
-    if (isDarkMode && widget.fontDarkColor != null) {
-      return widget.fontDarkColor!;
-    }
+    if (isDarkMode && widget.fontDarkColor != null) return widget.fontDarkColor;
+
     if (!isDarkMode && widget.fontLightColor != null) {
-      return widget.fontLightColor!;
+      return widget.fontLightColor;
     }
-    return null;
+
+    return isDarkMode ? AppColors.fontDark : AppColors.fontLight;
   }
 
   InputDecoration _hintStyle(TextStyle? textStyle, bool isDarkMode) {
     return InputDecoration(
-      border: _defaultBorder(isDarkMode),
-      enabledBorder: _defaultBorder(isDarkMode),
-      focusedBorder: _defaultBorder(isDarkMode),
-      errorBorder: _defaultBorder(isDarkMode),
+      border: _buildBorder(
+        widget.borderLightColor,
+        widget.borderDarkColor,
+        isDarkMode,
+      ),
+      enabledBorder: _buildBorder(
+        widget.borderEnabledLightColor,
+        widget.borderEnabledDarkColor,
+        isDarkMode,
+      ),
+      focusedBorder: _buildBorder(
+        widget.borderFocusedLightColor,
+        widget.borderFocusedDarkColor,
+        isDarkMode,
+      ),
+      errorBorder: _buildBorder(
+        widget.borderErrorLightColor,
+        widget.borderErrorDarkColor,
+        isDarkMode,
+      ),
       hintText: widget.hintText,
       labelStyle: _defaultTextStyle(textStyle, isDarkMode),
-      hintStyle: _labelTextStyle,
+      hintStyle: _labelTextStyle(isDarkMode),
       counter: const Offstage(),
+      contentPadding: widget.contentPadding,
+      suffixIcon: widget.suffixIcon,
+      prefixIcon: widget.prefixIcon,
     );
   }
 
-  OutlineInputBorder _defaultBorder(bool isDarkMode) {
+  OutlineInputBorder _buildBorder(
+    Color? lightColor,
+    Color? darkColor,
+    bool isDarkMode,
+  ) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(
-        widget.borderRadius ?? AppSizes.radiusLarge,
+        widget.borderRadius ?? AppSizes.radiusMini,
       ),
       borderSide: BorderSide(
-        color: _borderColor(isDarkMode),
+        color: _getBorderColor(lightColor, darkColor, isDarkMode),
         width: widget.borderWidth ?? 1.0,
       ),
     );
   }
 
-  Color _borderColor(bool isDarkMode) {
-    return (isDarkMode ? widget.borderDarkColor : widget.borderLightColor) ??
-        AppColors.black;
+  Color _getBorderColor(Color? lightColor, Color? darkColor, bool isDarkMode) {
+    if (isDarkMode && darkColor != null) return darkColor;
+    if (!isDarkMode && lightColor != null) return lightColor;
+    return isDarkMode ? AppColors.borderDark : AppColors.borderLight;
   }
 
-  TextStyle get _labelTextStyle =>
-      const TextStyle(color: AppColors.grey, fontWeight: FontWeight.w400);
+  TextStyle _labelTextStyle(bool isDarkMode) => TextStyle(
+        color: isDarkMode ? AppColors.hintDark : AppColors.hintLight,
+        fontWeight: FontWeight.w400,
+      );
 
   void _onTextChanged(String text) {
     setState(() {
