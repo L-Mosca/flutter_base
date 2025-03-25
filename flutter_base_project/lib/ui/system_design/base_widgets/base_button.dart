@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_project/base/providers/theme_provider.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_text.dart';
 import 'package:flutter_base_project/utils/constants/app_colors.dart';
+import 'package:flutter_base_project/utils/constants/app_constants.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 
 /// Default button widget
-class BaseButton extends StatefulWidget {
+class BaseButton extends StatelessWidget {
   const BaseButton({
     super.key,
     required this.onPressed,
@@ -18,6 +19,7 @@ class BaseButton extends StatefulWidget {
     this.padding,
     this.height,
     this.width,
+    this.showLoading,
 
     // Text attrs
     required this.text,
@@ -40,6 +42,7 @@ class BaseButton extends StatefulWidget {
   final EdgeInsets? padding;
   final double? width;
   final double? height;
+  final bool? showLoading;
 
   // Text style
   final String text;
@@ -51,60 +54,109 @@ class BaseButton extends StatefulWidget {
   final TextAlign? textAlign;
 
   @override
-  State<BaseButton> createState() => _BaseButtonState();
-}
-
-class _BaseButtonState extends State<BaseButton> {
-  @override
   Widget build(BuildContext context) {
     final isDarkMode = context.isDarkMode();
+    return AnimatedSwitcher(
+      duration: AppConstants.defaultAnimationDuration,
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      child: showLoading == true ? _loading(isDarkMode) : _button(isDarkMode),
+    );
+  }
 
+  Widget _button(bool isDarkMode) {
     return SizedBox(
-      width: widget.width,
-      height: widget.height,
+      width: width,
+      height: height,
       child: MaterialButton(
         padding: _buttonPadding,
-        elevation: widget.elevation,
-        color: widget.color ?? AppColors.accent,
-        onPressed: widget.onPressed,
+        elevation: elevation,
+        color: color ?? AppColors.accent,
+        onPressed: onPressed,
         shape: _borderShape(isDarkMode),
-        child: _buttonText,
+        child: _buttonText(isDarkMode),
       ),
     );
   }
 
   ShapeBorder _borderShape(bool isDarkMode) => RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-          widget.borderRadius ?? AppSizes.borderRadiusLg,
+          borderRadius ?? AppSizes.radiusMini,
         ),
         side: BorderSide(
           color: _borderColor(isDarkMode),
-          width: widget.borderWidth ?? 0,
+          width: borderWidth ?? 0,
         ),
       );
 
-  BaseText get _buttonText => BaseText(
-        text: widget.text,
-        fontSize: widget.fontSize,
-        fontLightColor: widget.fontLightColor,
-        fontDarkColor: widget.fontDarkColor,
-        fontWeight: widget.fontWeight,
-        textAlign: widget.textAlign,
-      );
+  BaseText _buttonText(bool isDarkMode) {
+    return BaseText(
+      text: text,
+      fontSize: fontSize ?? AppSizes.fontMedium,
+      fontLightColor: _fontLightColor(isDarkMode),
+      fontDarkColor: _fontDarkColor(isDarkMode),
+      fontWeight: fontWeight ?? FontWeight.w600,
+      textAlign: textAlign,
+    );
+  }
+
+  Widget _loading(bool isDarkMode) {
+    return Container(
+      width: width,
+      height: height,
+      padding: _buttonPadding,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+          borderRadius ?? AppSizes.radiusMini,
+        ),
+        border: Border.all(
+          color: _borderColor(isDarkMode),
+          width: borderWidth ?? 1.0,
+        ),
+      ),
+      child: Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          height: 22.0,
+          width: 22.0,
+          child: CircularProgressIndicator(
+            color: AppColors.accent,
+            strokeWidth: 3.0,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Color _fontLightColor(bool isDarkMode) {
+    if (!isDarkMode && fontLightColor != null) return fontLightColor!;
+
+    return AppColors.white;
+  }
+
+  Color _fontDarkColor(bool isDarkMode) {
+    if (isDarkMode && fontDarkColor != null) return fontDarkColor!;
+
+    return AppColors.white;
+  }
 
   EdgeInsets get _buttonPadding =>
-      widget.padding ??
+      padding ??
       EdgeInsets.symmetric(
-        horizontal: AppSizes.lg,
-        vertical: AppSizes.md,
+        horizontal: AppSizes.marginLarge,
+        vertical: 14.0,
       );
 
   Color _borderColor(bool isDarkMode) {
-    if (isDarkMode && widget.borderDarkColor != null) {
-      return widget.fontDarkColor!;
+    if (isDarkMode && borderDarkColor != null) {
+      return borderDarkColor!;
     }
-    if (!isDarkMode && widget.borderLightColor != null) {
-      return widget.fontLightColor!;
+    if (!isDarkMode && borderLightColor != null) {
+      return borderLightColor!;
     }
     return AppColors.transparent;
   }

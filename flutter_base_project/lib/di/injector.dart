@@ -1,5 +1,6 @@
 import 'package:flutter_base_project/di/modules/api_module.dart';
 import 'package:flutter_base_project/di/modules/data_module.dart';
+import 'package:flutter_base_project/di/modules/helper_module.dart';
 import 'package:flutter_base_project/di/modules/repository_module.dart';
 import 'package:get_it/get_it.dart';
 
@@ -26,6 +27,7 @@ class _GetItImpl implements Injector {
   /// Inicializa todas as dependências
   @override
   Future<void> initialize() async {
+    HelperModule.setup(getIt);
     ApiModule.setup(getIt);
     await DataModule.setup(getIt);
     RepositoriesModule.setup(getIt);

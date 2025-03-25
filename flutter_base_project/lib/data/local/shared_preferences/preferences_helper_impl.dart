@@ -3,7 +3,6 @@ import 'package:flutter_base_project/domain/models/cart/cart.dart';
 import 'package:flutter_base_project/domain/models/payment/credit_card.dart';
 import 'package:flutter_base_project/domain/models/payment/payment.dart';
 import 'package:flutter_base_project/domain/models/product/product.dart';
-import 'package:flutter_base_project/domain/models/user/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesHelperImpl implements PreferencesHelper {
@@ -15,6 +14,16 @@ class PreferencesHelperImpl implements PreferencesHelper {
     final prefs = await SharedPreferences.getInstance();
     return PreferencesHelperImpl._(prefs);
   }
+
+  // Constants
+  final _userTokenKey = "Preferences.userTokenKey";
+
+  @override
+  Future<void> saveUserToken({required String token}) async =>
+      await _setString(key: _userTokenKey, value: token);
+
+  @override
+  Future<String?> getUserToken() async => await _getString(key: _userTokenKey);
 
   @override
   Future<void> addCard({required CreditCard card}) async {}
@@ -80,14 +89,6 @@ class PreferencesHelperImpl implements PreferencesHelper {
       ),
     );
   }
-
-  @override
-  Future<User?> getUser() async {
-    return null;
-  }
-
-  @override
-  Future<void> saveUser({required User user}) async {}
 
   Future<void> _setInt({required String key, required int? value}) async {
     await prefs.setInt(key, value ?? -1);

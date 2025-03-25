@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/router/app_router.dart';
 import 'package:flutter_base_project/ui/screens/splash/bloc/splash_bloc.dart';
 import 'package:flutter_base_project/ui/screens/splash/bloc/splash_event.dart';
 import 'package:flutter_base_project/ui/screens/splash/bloc/splash_state.dart';
@@ -25,9 +26,14 @@ class _SplashPageState extends State<SplashPage> {
   void _onPageChange(BuildContext context, SplashState state) {}
 
   Widget _pageContent(BuildContext context, SplashState state) {
-    return Scaffold(
-      backgroundColor: Colors.grey,
-      body: Center(),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, AppRouter.loginRoute);
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey,
+        body: Center(),
+      ),
     );
   }
 }

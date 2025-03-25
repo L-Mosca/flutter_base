@@ -10,7 +10,10 @@ class RepositoriesModule {
   static void setup(GetIt getIt) {
     // User Repository
     getIt.registerSingleton<UserRepository>(
-      UserRepositoryImpl(clientHelper: getIt<ClientHelper>()),
+      UserRepositoryImpl(
+        clientHelper: getIt<ClientHelper>(),
+        preferencesHelper: getIt<PreferencesHelper>(),
+      ),
     );
 
     // Product Repository
