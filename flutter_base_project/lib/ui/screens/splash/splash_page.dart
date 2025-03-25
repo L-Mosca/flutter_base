@@ -3,7 +3,10 @@ import 'package:flutter_base_project/router/app_router.dart';
 import 'package:flutter_base_project/ui/screens/splash/bloc/splash_bloc.dart';
 import 'package:flutter_base_project/ui/screens/splash/bloc/splash_event.dart';
 import 'package:flutter_base_project/ui/screens/splash/bloc/splash_state.dart';
+import 'package:flutter_base_project/ui/screens/splash/widgets/splash_icon.dart';
+import 'package:flutter_base_project/ui/screens/splash/widgets/splash_title.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_page.dart';
+import 'package:flutter_base_project/utils/constants/app_colors.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -23,17 +26,25 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
-  void _onPageChange(BuildContext context, SplashState state) {}
+  void _onPageChange(BuildContext context, SplashState state) {
+    if (state.listener == SplashListener.showLogin) _showLogin();
+    if (state.listener == SplashListener.showHome) _showHome();
+  }
 
   Widget _pageContent(BuildContext context, SplashState state) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, AppRouter.loginRoute);
-      },
-      child: Scaffold(
-        backgroundColor: Colors.grey,
-        body: Center(),
+    return Scaffold(
+      backgroundColor: AppColors.accent,
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [SplashIcon(), SplashTitle()],
+        ),
       ),
     );
   }
+
+  void _showLogin() => Navigator.popAndPushNamed(context, AppRouter.loginRoute);
+
+  void _showHome() => Navigator.popAndPushNamed(context, AppRouter.homeRoute);
 }

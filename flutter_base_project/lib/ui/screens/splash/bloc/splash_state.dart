@@ -1,19 +1,23 @@
 import 'package:flutter_base_project/base/state_management/copyable.dart';
 
-enum SplashStatus { initial }
+enum SplashListener { nothing, showLogin, showHome }
 
 class SplashState implements Copyable<SplashState> {
-  const SplashState({this.status = SplashStatus.initial});
+  const SplashState({this.listener = SplashListener.nothing});
 
-  final SplashStatus status;
+  final SplashListener listener;
 
   @override
   SplashState copy() {
-    return SplashState(status: status);
+    return SplashState(listener: listener);
   }
 
   @override
-  SplashState copyWith({SplashStatus? status}) {
-    return SplashState(status: status ?? this.status);
+  SplashState copyWith({SplashListener? listener}) {
+    return SplashState(listener: listener ?? this.listener);
   }
+
+  SplashState get showLogin => copyWith(listener: SplashListener.showLogin);
+
+  SplashState get showHome => copyWith(listener: SplashListener.showHome);
 }
