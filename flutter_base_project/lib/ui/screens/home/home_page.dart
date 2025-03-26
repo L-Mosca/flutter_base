@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/router/app_router.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_bloc.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_event.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_state.dart';
@@ -25,7 +26,10 @@ class HomePage extends StatelessWidget {
           color: AppColors.white,
           child: Stack(
             children: [
-              ProductList(list: state.products),
+              ProductList(
+                list: state.products,
+                onProductPressed: (id) => _onProductPressed(context, id),
+              ),
               if (state.showLoading) HomeLoading(),
             ],
           ),
@@ -35,4 +39,12 @@ class HomePage extends StatelessWidget {
   }
 
   void _onPageChanged(BuildContext context, HomeState state) {}
+
+  void _onProductPressed(BuildContext context, int productId) {
+    Navigator.pushNamed(
+      context,
+      AppRouter.productDetailRoute,
+      arguments: {AppRouter.productDetailIdArgument: productId},
+    );
+  }
 }

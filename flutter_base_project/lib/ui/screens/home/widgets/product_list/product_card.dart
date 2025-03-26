@@ -8,25 +8,33 @@ import 'package:flutter_base_project/ui/screens/home/widgets/product_list/produc
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_card.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.product});
+  const ProductCard({
+    super.key,
+    required this.product,
+    required this.onProductPressed,
+  });
 
   final Product product;
+  final void Function(int) onProductPressed;
 
   @override
   Widget build(BuildContext context) {
-    return BaseCard(
-      lightColor: Colors.white,
-      darkColor: Colors.white,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ProductCardImage(product.image ?? ""),
-          ProductCardTitle(name: product.title ?? ""),
-          ProductCardCategory(category: product.category ?? ""),
-          ProductStarRating(rate: product.rating?.rate),
-          ProductCardPrice(price: product.price),
-        ],
+    return GestureDetector(
+      onTap: () => onProductPressed(product.id!),
+      child: BaseCard(
+        lightColor: Colors.white,
+        darkColor: Colors.white,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ProductCardImage(product.image ?? ""),
+            ProductCardTitle(name: product.title ?? ""),
+            ProductCardCategory(category: product.category ?? ""),
+            ProductStarRating(rate: product.rating?.rate),
+            ProductCardPrice(price: product.price),
+          ],
+        ),
       ),
     );
   }
