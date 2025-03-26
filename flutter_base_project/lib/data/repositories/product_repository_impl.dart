@@ -15,7 +15,6 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<List<Product>> getAllProducts() async {
-    await preferencesHelper.deleteCart();
     final data = await clientHelper.getAllProducts();
     return data.toProductList();
   }
