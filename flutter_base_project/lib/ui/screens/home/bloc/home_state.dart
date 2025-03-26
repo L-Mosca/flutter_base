@@ -1,35 +1,35 @@
 import 'package:flutter_base_project/base/state_management/copyable.dart';
 import 'package:flutter_base_project/domain/models/product/product.dart';
 
-enum HomeStatus { initial }
-
 class HomeState implements Copyable<HomeState> {
   const HomeState({
-    this.status = HomeStatus.initial,
     this.products = const [],
+    this.showLoading = false,
   });
 
-  final HomeStatus status;
   final List<Product> products;
+  final bool showLoading;
 
   @override
   HomeState copy() {
     return HomeState(
-      status: status,
       products: products,
+      showLoading: showLoading,
     );
   }
 
   @override
   HomeState copyWith({
-    HomeStatus? status,
     List<Product>? products,
+    bool? showLoading,
   }) {
     return HomeState(
-      status: status ?? this.status,
       products: products ?? this.products,
+      showLoading: showLoading ?? this.showLoading,
     );
   }
 
   HomeState loadProducts(List<Product> list) => copyWith(products: list);
+
+  HomeState isLoading(bool isLoading) => copyWith(showLoading: isLoading);
 }

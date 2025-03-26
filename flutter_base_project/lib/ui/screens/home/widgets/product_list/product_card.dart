@@ -4,6 +4,7 @@ import 'package:flutter_base_project/ui/screens/home/widgets/product_list/produc
 import 'package:flutter_base_project/ui/screens/home/widgets/product_list/product/product_card_image.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/product_list/product/product_card_price.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/product_list/product/product_card_title.dart';
+import 'package:flutter_base_project/ui/screens/home/widgets/product_list/product/product_star_rating.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_card.dart';
 
 class ProductCard extends StatelessWidget {
@@ -23,6 +24,7 @@ class ProductCard extends StatelessWidget {
           ProductCardImage(product.image ?? ""),
           ProductCardTitle(name: product.title ?? ""),
           ProductCardCategory(category: product.category ?? ""),
+          ProductStarRating(rate: product.rating?.rate),
           ProductCardPrice(price: product.price),
         ],
       ),

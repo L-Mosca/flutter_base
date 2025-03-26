@@ -5,6 +5,7 @@ class Product {
   String? description;
   String? category;
   String? image;
+  ProductRating? rating;
 
   Product({
     this.id,
@@ -13,11 +14,12 @@ class Product {
     this.description,
     this.category,
     this.image,
+    this.rating,
   });
 
   @override
   String toString() {
-    return 'Product{id: $id, title: $title, price: $price, description: $description, category: $category, image: $image}';
+    return 'Product{id: $id, title: $title, price: $price, description: $description, category: $category, image: $image, rating: $rating}';
   }
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class Product {
     description = json["description"];
     category = json["category"];
     image = json["image"];
+    rating = ProductRating.fromJson(json["rating"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -41,6 +44,34 @@ class Product {
     data["description"] = description;
     data["category"] = category;
     data["image"] = image;
+    data["rating"] = rating?.toJson();
+    return data;
+  }
+}
+
+class ProductRating {
+  double? rate;
+  int? count;
+
+  ProductRating({
+    required this.rate,
+    required this.count,
+  });
+
+  @override
+  String toString() {
+    return 'ProductRating{rate: $rate, count: $count}';
+  }
+
+  ProductRating.fromJson(Map<String, dynamic> json) {
+    rate = json["rate"];
+    count = json["count"];
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data["rate"] = rate;
+    data["count"] = count;
     return data;
   }
 }

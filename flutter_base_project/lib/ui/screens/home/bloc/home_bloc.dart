@@ -22,7 +22,7 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
         final products = await productRepository.getAllProducts();
         if (products.isNotEmpty) emitter(state.loadProducts(products));
       },
-      loadingStatus: (isLoading) {},
+      loadingStatus: (isLoading) => emitter(state.isLoading(isLoading)),
       exceptionHandler: (exception) {},
     );
   }

@@ -11,16 +11,18 @@ class ProductList extends StatelessWidget {
   Widget build(BuildContext context) {
     if (list.isEmpty) return const SizedBox();
 
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 20.0,
-        mainAxisSpacing: 20.0,
-        mainAxisExtent: 320.0
+    return Expanded(
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20.0,
+          mainAxisSpacing: 20.0,
+          mainAxisExtent: 330.0
+        ),
+        itemBuilder: (context, index) => ProductCard(product: list[index]),
+        itemCount: list.length,
+        padding: const EdgeInsets.all(8.0),
       ),
-      itemBuilder: (context, index) => ProductCard(product: list[index]),
-      itemCount: list.length,
-      padding: const EdgeInsets.all(8.0),
     );
   }
 }
