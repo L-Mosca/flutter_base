@@ -1,15 +1,21 @@
 import 'package:flutter_base_project/base/state_management/base_bloc.dart';
 import 'package:flutter_base_project/domain/repositories/product_repository.dart';
+import 'package:flutter_base_project/domain/repositories/user_repository.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_event.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
   final ProductRepository productRepository;
+  final UserRepository userRepository;
 
-  HomeBloc({required this.productRepository}) : super(const HomeState()) {
+  HomeBloc({
+    required this.productRepository,
+    required this.userRepository,
+  }) : super(const HomeState()) {
     on<HomeInitEvent>(_init);
     on<HomeFetchProductsEvent>(_fetchProducts);
+    on<HomeLogoutEvent>(_logout);
     on<HomeResetListenerEvent>(_resetListener);
   }
 
@@ -32,8 +38,21 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     Emitter<HomeState> emitter,
   ) async {}
 
+  void _logout(HomeLogoutEvent event, Emitter<HomeState> emitter) async {
+    await defaultLaunch(
+      function: () async {
+        await userRepository.logout();
+        emitter(state.logoutSuccess);
+      },
+      exceptionHandler: (exception) {},
+      loadingStatus: (isLoading) {},
+    );
+  }
+
   void _resetListener(
     HomeResetListenerEvent event,
     Emitter<HomeState> emitter,
-  ) async {}
+  ) async {
+    emitter(state.resetListener);
+  }
 }

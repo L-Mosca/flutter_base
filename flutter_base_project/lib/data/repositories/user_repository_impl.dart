@@ -27,7 +27,6 @@ class UserRepositoryImpl implements UserRepository {
     required String username,
     required String password,
   }) async {
-
     // Do login
     final body = LoginBody(username: username, password: password);
     final data = await clientHelper.login(loginBody: body.toLoginBodyDto());
@@ -53,5 +52,10 @@ class UserRepositoryImpl implements UserRepository {
   Future<bool> isLogged() async {
     final token = await preferencesHelper.getUserToken();
     return token != null && token.isNotEmpty;
+  }
+
+  @override
+  Future<void> logout() async {
+    await preferencesHelper.saveUserToken(token: "");
   }
 }

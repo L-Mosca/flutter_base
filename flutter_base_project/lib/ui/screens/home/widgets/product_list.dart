@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/domain/models/product/product.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/product_list/product_card.dart';
+import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 
 class ProductList extends StatelessWidget {
   const ProductList({
@@ -19,7 +20,7 @@ class ProductList extends StatelessWidget {
     return GridView.builder(
       gridDelegate: _gridDelegate,
       itemCount: list.length,
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(AppSizes.marginSmall),
       itemBuilder: (context, index) => ProductCard(
         product: list[index],
         onProductPressed: onProductPressed,
