@@ -7,6 +7,8 @@ abstract interface class UserRepository {
     required String password,
   });
 
+  Future<void> logout();
+
   Future<User> getGenericUser();
 
   Future<void> saveUserToken({required String token});

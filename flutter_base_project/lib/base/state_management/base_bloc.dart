@@ -18,7 +18,7 @@ abstract class BaseBloc<E, S> extends Bloc<E, S> {
       if (loadingStatus != null) loadingStatus(true);
       await function();
     } catch (e, stackTrace) {
-      if (kDebugMode) print(stackTrace);
+      if (kDebugMode) print("Error on defaultLaunch: $stackTrace");
 
       if (exceptionHandler != null) {
         exceptionHandler(Exception(e.toString()));

@@ -33,7 +33,7 @@ class BaseCard extends StatelessWidget {
   final Color? borderLightColor;
   final Color? borderDarkColor;
   final double? borderWidth;
-  final int? elevation;
+  final double? elevation;
 
   @override
   Widget build(BuildContext context) {

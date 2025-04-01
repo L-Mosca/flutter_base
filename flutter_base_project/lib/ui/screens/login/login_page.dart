@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/localization/delegate/localization_extensions.dart';
+import 'package:flutter_base_project/router/app_router.dart';
 import 'package:flutter_base_project/ui/screens/login/bloc/login_bloc.dart';
 import 'package:flutter_base_project/ui/screens/login/bloc/login_event.dart';
 import 'package:flutter_base_project/ui/screens/login/bloc/login_state.dart';
@@ -93,8 +94,8 @@ class LoginPage extends StatelessWidget {
 
   void _loginSuccess(BuildContext context, LoginState state) {
     if (state.listener == LoginListener.loginSuccess) {
-      // show home here
-      //context.read().add(LoginResetListenerEvent());
+      Navigator.popAndPushNamed(context, AppRouter.homeRoute);
+      context.read().add(LoginResetListenerEvent());
     }
   }
 

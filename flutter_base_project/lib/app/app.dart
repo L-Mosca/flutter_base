@@ -36,13 +36,12 @@ class _AppState extends State<App> {
           themeMode: _themeMode,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          //routes: AppRouter.routes,
-          onGenerateRoute: AppRouter.onGenerateRoute,
           initialRoute: AppRouter.splashRoute,
           localizationsDelegates: _localizationsDelegates,
           supportedLocales: _supportedLocales,
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
+          onGenerateRoute: _routes,
         ),
       ),
     );
@@ -52,12 +51,16 @@ class _AppState extends State<App> {
       const [Locale("pt", "BR"), Locale("en", "US")];
 
   Iterable<LocalizationsDelegate<dynamic>>? get _localizationsDelegates => [
-    AppLocalizationDelegate(
-      ptBrLocalization: PtBr(),
-      enUsLocalization: EnUs(),
-    ),
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-  ];
+        AppLocalizationDelegate(
+          ptBrLocalization: PtBr(),
+          enUsLocalization: EnUs(),
+        ),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ];
+
+  Route<dynamic>? _routes(RouteSettings settings) {
+    return AppRouter.onGenerateRoute(settings, context);
+  }
 }

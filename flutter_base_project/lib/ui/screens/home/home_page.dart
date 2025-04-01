@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/router/app_router.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_bloc.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_event.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_state.dart';
+import 'package:flutter_base_project/ui/screens/home/widgets/header/home_header.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/home_loading.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/product_list.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_page.dart';
 import 'package:flutter_base_project/utils/constants/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -23,10 +26,20 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         body: Container(
           color: AppColors.white,
-          child: Stack(
+          child: Column(
             children: [
-              ProductList(list: state.products),
-              if (state.showLoading) HomeLoading(),
+              HomeHeader(onLogoutPressed: () => _onLogoutPressed(context)),
+              Expanded(
+                child: Stack(
+                  children: [
+                    ProductList(
+                      list: state.products,
+                      onProductPressed: (id) => _onProductPressed(context, id),
+                    ),
+                    if (state.showLoading) HomeLoading(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -34,5 +47,25 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _onPageChanged(BuildContext context, HomeState state) {}
+  void _onPageChanged(BuildContext context, HomeState state) {
+    _logoutSuccess(context, state);
+  }
+
+  void _onLogoutPressed(BuildContext context) =>
+      context.read<HomeBloc>().add(HomeLogoutEvent());
+
+  void _onProductPressed(BuildContext context, int productId) {
+    Navigator.pushNamed(
+      context,
+      AppRouter.productDetailRoute,
+      arguments: {AppRouter.productDetailIdArgument: productId},
+    );
+  }
+
+  void _logoutSuccess(BuildContext context, HomeState state) {
+    if (state.listener == HomeListener.logoutSuccess) {
+      Navigator.popAndPushNamed(context, AppRouter.loginRoute);
+      context.read<HomeBloc>().add(HomeResetListenerEvent());
+    }
+  }
 }

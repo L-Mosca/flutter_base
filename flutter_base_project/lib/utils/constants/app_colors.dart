@@ -28,6 +28,10 @@ class AppColors {
   static const Color borderLight = accent;
   static const Color borderDark = blue700;
 
+  // Shimmer
+  static const Color shimmerPrimaryColor = Color(0xFFE0E0E0);
+  static const Color shimmerSecondaryColor = Color(0xFFF5F5F5);
+
   // Blue
   static const Color blue100 = Color(0xFFE3F3FF);
   static const Color blue200 = Color(0xFFB8E1FF);
