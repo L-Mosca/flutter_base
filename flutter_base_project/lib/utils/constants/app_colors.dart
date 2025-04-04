@@ -4,8 +4,11 @@ class AppColors {
   AppColors._();
 
   // App Basic Colors
-  static const Color primary = Color(0xFFFFFFFF);
-  static const Color accent = Color(0xFF41BFFF);
+  static const Color primaryLight = Color(0xFFFFFFFF);
+  static const Color primaryDark = Color(0xFF17162E);
+
+  static const Color accentLight = Color(0xFF41BFFF);
+  static const Color accentDark = Color(0xFF2770AD);
 
   // Text Colors
   static const Color textPrimary = Color(0xFF333333);
@@ -25,12 +28,24 @@ class AppColors {
   static const Color hintDark = Color(0xFFECECEF);
 
   // Border Colors
-  static const Color borderLight = accent;
-  static const Color borderDark = blue700;
+  static const Color borderLight = accentLight;
+  static const Color borderDark = blueDark600;
+
+  static const Color borderFocusedLight = accentLight;
+  static const Color borderFocusedDark = blueDark600;
+
+  static const Color borderErrorLight = Color(0xFFEE1515);
+  static const Color borderErrorDark = Color(0xFFA41313);
+
+  static const Color borderEnabledLight = accentLight;
+  static const Color borderEnabledDark = blueDark600;
 
   // Shimmer
-  static const Color shimmerPrimaryColor = Color(0xFFE0E0E0);
-  static const Color shimmerSecondaryColor = Color(0xFFF5F5F5);
+  static const Color shimmerPrimaryLightColor = Color(0xFFE0E0E0);
+  static const Color shimmerSecondaryLightColor = Color(0xFFF5F5F5);
+
+  static const Color shimmerPrimaryDarkColor = blueDark600;
+  static const Color shimmerSecondaryDarkColor = blueDark500;
 
   // Blue
   static const Color blue100 = Color(0xFFE3F3FF);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/domain/models/product/product.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/product_list/product/product_card_category.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/product_list/product/product_card_image.dart';
@@ -22,8 +23,7 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => onProductPressed(product.id!),
       child: BaseCard(
-        lightColor: Colors.white,
-        darkColor: Colors.white,
+        color: context.colors.cardColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,

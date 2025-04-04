@@ -63,7 +63,7 @@ class BaseImageNetwork extends StatelessWidget {
   Widget _showDefaultLoading() => Container(
         padding: const EdgeInsets.all(AppSizes.marginExtraLarge),
         child: CircularProgressIndicator(
-          color: AppColors.accent,
+          color: AppColors.accentLight,
           strokeWidth: 4.0,
         ),
       );

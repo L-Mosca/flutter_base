@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/utils/constants/app_colors.dart';
 
 class StarRating extends StatelessWidget {
@@ -7,14 +8,14 @@ class StarRating extends StatelessWidget {
     required this.rating,
     this.starCount = 5,
     this.filledColor = AppColors.amber,
-    this.unfilledColor = AppColors.gray200,
+    this.unfilledColor,
     this.size = 24,
   });
 
   final double rating;
   final int starCount;
   final Color filledColor;
-  final Color unfilledColor;
+  final Color? unfilledColor;
   final double size;
 
   @override
@@ -31,7 +32,11 @@ class StarRating extends StatelessWidget {
         stars.add(
           Stack(
             children: [
-              Icon(Icons.star, color: unfilledColor, size: size),
+              Icon(
+                Icons.star,
+                color: unfilledColor ?? context.colors.starFilled,
+                size: size,
+              ),
               ClipRect(
                 clipper: _StarClipper(fillAmount),
                 child: Icon(Icons.star, color: filledColor, size: size),
@@ -40,7 +45,13 @@ class StarRating extends StatelessWidget {
           ),
         );
       } else {
-        stars.add(Icon(Icons.star, color: unfilledColor, size: size));
+        stars.add(
+          Icon(
+            Icons.star,
+            color: unfilledColor ?? context.colors.starFilled,
+            size: size,
+          ),
+        );
       }
     }
 

@@ -10,7 +10,6 @@ class ProductDetailImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.white,
       padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 40.0),
       child: Center(
         child: SizedBox(

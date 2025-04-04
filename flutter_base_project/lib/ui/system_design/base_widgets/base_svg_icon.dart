@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/base/providers/theme_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BaseSvgIcon extends StatelessWidget {
@@ -8,16 +7,14 @@ class BaseSvgIcon extends StatelessWidget {
     required this.iconPath,
     this.width,
     this.height,
-    this.iconLightColor,
-    this.iconDarkColor,
+    this.iconColor,
     this.fit,
   });
 
   final String iconPath;
   final double? width;
   final double? height;
-  final Color? iconLightColor;
-  final Color? iconDarkColor;
+  final Color? iconColor;
   final BoxFit? fit;
 
   @override
@@ -32,16 +29,7 @@ class BaseSvgIcon extends StatelessWidget {
   }
 
   ColorFilter? _iconColor(BuildContext context) {
-    if (iconLightColor == null && iconDarkColor == null) return null;
-    final isDark = context.isDarkMode();
-
-    if (!isDark && iconLightColor != null) {
-      return ColorFilter.mode(iconLightColor!, BlendMode.srcIn);
-    }
-    if (isDark && iconDarkColor != null) {
-      return ColorFilter.mode(iconDarkColor!, BlendMode.srcIn);
-    }
-
+    if (iconColor != null) return ColorFilter.mode(iconColor!, BlendMode.srcIn);
     return null;
   }
 }

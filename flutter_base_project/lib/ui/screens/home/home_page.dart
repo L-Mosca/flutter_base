@@ -5,10 +5,10 @@ import 'package:flutter_base_project/ui/screens/home/bloc/home_event.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_state.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/header/home_header.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/home_loading.dart';
-import 'package:flutter_base_project/ui/screens/home/widgets/product_list.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_page.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'widgets/product_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -24,24 +24,21 @@ class HomePage extends StatelessWidget {
   Widget _pageContent(BuildContext context, HomeState state) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          color: AppColors.white,
-          child: Column(
-            children: [
-              HomeHeader(onLogoutPressed: () => _onLogoutPressed(context)),
-              Expanded(
-                child: Stack(
-                  children: [
-                    ProductList(
-                      list: state.products,
-                      onProductPressed: (id) => _onProductPressed(context, id),
-                    ),
-                    if (state.showLoading) HomeLoading(),
-                  ],
-                ),
+        body: Column(
+          children: [
+            HomeHeader(onLogoutPressed: () => _onLogoutPressed(context)),
+            Expanded(
+              child: Stack(
+                children: [
+                  ProductList(
+                    list: state.products,
+                    onProductPressed: (id) => _onProductPressed(context, id),
+                  ),
+                  if (state.showLoading) HomeLoading(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
