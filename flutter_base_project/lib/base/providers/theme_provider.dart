@@ -42,6 +42,11 @@ extension ThemeProviderExtensions on BuildContext {
     ThemeProvider.of(this).setThemeMode(themeMode);
   }
 
+  void changeThemeMode(bool isDarkMode) {
+    final newTheme = isDarkMode ? ThemeMode.dark : ThemeMode.light;
+    setThemeMode(newTheme);
+  }
+
   void switchThemeMode() {
     final newTheme = isDarkMode() ? ThemeMode.light : ThemeMode.dark;
     setThemeMode(newTheme);

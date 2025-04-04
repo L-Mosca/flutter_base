@@ -17,6 +17,7 @@ class PreferencesHelperImpl implements PreferencesHelper {
 
   // Constants
   final _userTokenKey = "Preferences.userTokenKey";
+  final _themeModeKey = "Preferences.themeModeKey";
 
   @override
   Future<void> saveUserToken({required String token}) async =>
@@ -24,6 +25,14 @@ class PreferencesHelperImpl implements PreferencesHelper {
 
   @override
   Future<String?> getUserToken() async => await _getString(key: _userTokenKey);
+
+  @override
+  Future<void> saveThemeMode({required bool isDarkMode}) async =>
+      await _setBool(key: _themeModeKey, value: isDarkMode);
+
+  @override
+  Future<bool> getThemeMode() async =>
+      await _getBool(key: _themeModeKey) ?? false;
 
   @override
   Future<void> addCard({required CreditCard card}) async {}

@@ -5,8 +5,8 @@ import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_base_project/utils/constants/app_constants.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 
-class BaseSnackBar {
-  static SnackBar defaultSnackBar({
+class BaseToast {
+  static SnackBar defaultToast({
     required String message,
     required BuildContext context,
     Duration? duration,
@@ -16,15 +16,15 @@ class BaseSnackBar {
   }) {
     return SnackBar(
       content: _defaultTextDesign(message, context),
-      duration: duration ?? AppConstants.snackBarShortDuration,
+      duration: duration ?? AppConstants.toastShortDuration,
       backgroundColor: backgroundColor ?? context.colors.toast,
-      behavior: SnackBarBehavior.fixed,
-      elevation: elevation ?? 8.0,
+      behavior: SnackBarBehavior.floating,
+      elevation: elevation ?? 0.0,
       shape: shape ?? _defaultShapeRadius,
     );
   }
 
-  static SnackBar defaultShortSnackBar({
+  static SnackBar defaultShortToast({
     required String message,
     required BuildContext context,
     Color? backgroundColor,
@@ -33,15 +33,15 @@ class BaseSnackBar {
   }) {
     return SnackBar(
       content: _defaultTextDesign(message, context),
-      duration: AppConstants.snackBarShortDuration,
-      backgroundColor: backgroundColor ?? context.colors.accent,
-      behavior: SnackBarBehavior.fixed,
-      elevation: elevation ?? 8.0,
+      duration: AppConstants.toastShortDuration,
+      backgroundColor: backgroundColor ?? context.colors.toast,
+      behavior: SnackBarBehavior.floating,
+      elevation: elevation ?? 0.0,
       shape: shape ?? _defaultShapeRadius,
     );
   }
 
-  static SnackBar defaultLongSnackBar({
+  static SnackBar defaultLongToast({
     required String message,
     required BuildContext context,
     Color? backgroundColor,
@@ -50,22 +50,19 @@ class BaseSnackBar {
   }) {
     return SnackBar(
       content: _defaultTextDesign(message, context),
-      duration: AppConstants.snackBarLongDuration,
-      backgroundColor: backgroundColor ?? context.colors.accent,
-      behavior: SnackBarBehavior.fixed,
-      elevation: elevation ?? 8.0,
+      duration: AppConstants.toastLongDuration,
+      backgroundColor: backgroundColor ?? context.colors.toast,
+      behavior: SnackBarBehavior.floating,
+      elevation: elevation ?? 0.0,
       shape: shape ?? _defaultShapeRadius,
     );
   }
 
   static ShapeBorder get _defaultShapeRadius => RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(AppSizes.radiusMini),
-          topLeft: Radius.circular(AppSizes.radiusMini),
-        ),
+        borderRadius: BorderRadius.circular(AppSizes.radiusLarge),
       );
 
-  static BaseText _defaultTextDesign(String message, BuildContext context) {
+  static Widget _defaultTextDesign(String message, BuildContext context) {
     return BaseText(
       text: message,
       textAlign: TextAlign.center,

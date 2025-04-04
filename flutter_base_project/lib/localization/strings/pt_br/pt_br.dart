@@ -18,4 +18,9 @@ class PtBr implements AppLocalization {
 
   // Product Detail Page
   @override String get addToCart => "Adicionar ao Carrinho";
+
+  // Settings Page
+  @override String get settings => "Configurações";
+  @override String get darkMode => "Dark mode";
+  @override String get logout => "Sair";
 }
