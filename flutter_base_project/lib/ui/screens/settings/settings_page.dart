@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/base/providers/theme_provider.dart';
+import 'package:flutter_base_project/router/app_router.dart';
 import 'package:flutter_base_project/ui/screens/settings/bloc/settings_bloc.dart';
 import 'package:flutter_base_project/ui/screens/settings/bloc/settings_event.dart';
 import 'package:flutter_base_project/ui/screens/settings/bloc/settings_state.dart';
@@ -22,6 +23,7 @@ class SettingsPage extends StatelessWidget {
 
   void _onChange(BuildContext context, SettingsState state) {
     _changeTheme(context, state);
+    _logoutSuccess(context, state);
   }
 
   Widget _pageContent(BuildContext context, SettingsState state) {
@@ -34,7 +36,7 @@ class SettingsPage extends StatelessWidget {
               value: state.isDarkMode,
               onChanged: (value) => _onSwitchChanged(context, value),
             ),
-            SettingsLogout(onLogoutPressed: () {}),
+            SettingsLogout(onLogoutPressed: () => _onLogoutPressed(context)),
           ],
         ),
       ),
@@ -47,9 +49,25 @@ class SettingsPage extends StatelessWidget {
         );
   }
 
+  void _onLogoutPressed(BuildContext context) {
+    context.read<SettingsBloc>().add(SettingsLogoutEvent());
+  }
+
   void _changeTheme(BuildContext context, SettingsState state) {
     if (state.listener == SettingsListener.changeTheme) {
       context.changeThemeMode(state.isDarkMode);
+      context.read<SettingsBloc>().add(SettingsResetListenerEvent());
+    }
+  }
+
+  void _logoutSuccess(BuildContext context, SettingsState state) {
+    if (state.listener == SettingsListener.logoutSuccess) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRouter.loginRoute,
+        (_) => false,
+      );
+      context.read<SettingsBloc>().add(SettingsResetListenerEvent());
     }
   }
 }

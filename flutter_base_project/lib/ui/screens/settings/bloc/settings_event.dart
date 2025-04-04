@@ -7,3 +7,7 @@ class SettingsChangeThemeEvent extends SettingsEvent {
 
   SettingsChangeThemeEvent({required this.isDarkMode});
 }
+
+class SettingsLogoutEvent extends SettingsEvent {}
+
+class SettingsResetListenerEvent extends SettingsEvent {}

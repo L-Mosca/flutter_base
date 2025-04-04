@@ -1,6 +1,6 @@
 import 'package:flutter_base_project/base/state_management/copyable.dart';
 
-enum SettingsListener { nothing, changeTheme }
+enum SettingsListener { nothing, changeTheme, logoutSuccess }
 
 class SettingsState implements Copyable<SettingsState> {
   const SettingsState({
@@ -32,4 +32,10 @@ class SettingsState implements Copyable<SettingsState> {
 
   SettingsState setIsDarkMode(bool darkMode) =>
       copyWith(listener: SettingsListener.changeTheme, isDarkMode: darkMode);
+
+  SettingsState get logoutSuccess =>
+      copyWith(listener: SettingsListener.logoutSuccess);
+
+  SettingsState get resetListener =>
+      copyWith(listener: SettingsListener.nothing);
 }
