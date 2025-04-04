@@ -1,7 +1,7 @@
 abstract class ProductDetailEvent {}
 
 class ProductDetailInitEvent extends ProductDetailEvent {
-  final int? productId;
+  final int productId;
 
   ProductDetailInitEvent({required this.productId});
 }

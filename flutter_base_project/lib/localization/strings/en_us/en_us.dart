@@ -15,4 +15,7 @@ class EnUs extends AppLocalization {
   @override String get signInToContinue => "Sign in to continue";
   @override String get invalidUsername => "Invalid username";
   @override String get invalidPassword => "Invalid password";
+
+  // Product Detail Page
+  @override String get addToCart => "Add To Cart";
 }

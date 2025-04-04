@@ -15,4 +15,7 @@ class PtBr implements AppLocalization {
   @override String get signInToContinue => "Entre para continuar";
   @override String get invalidUsername => "Usuário inválido";
   @override String get invalidPassword => "Senha inválida";
+
+  // Product Detail Page
+  @override String get addToCart => "Adicionar ao Carrinho";
 }
