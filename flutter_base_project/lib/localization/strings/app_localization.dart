@@ -13,4 +13,7 @@ abstract class AppLocalization {
   String get signInToContinue;
   String get invalidUsername;
   String get invalidPassword;
+
+  // Product Detail Page
+  String get addToCart;
 }
