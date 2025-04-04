@@ -17,7 +17,7 @@ class AppColors {
   static const Color textDark = Color(0xFF565672);
 
   // Background Colors
-  static const Color lightBackground = Color(0xFFF6F6F6);
+  static const Color lightBackground = Color(0xFFFFFFFF);
   static const Color darkBackground = Color(0xFF17162E);
   static Color shadow = black.withValues(alpha: 0.2);
 
@@ -26,6 +26,10 @@ class AppColors {
   static const Color fontDark = Color(0xFFFFFFFF);
   static const Color hintLight = Color(0xFF9599AA);
   static const Color hintDark = Color(0xFFECECEF);
+
+  // Error
+  static const Color errorLight = Color(0xFFA41313);
+  static const Color errorDark = Color(0xFFEE1515);
 
   // Border Colors
   static const Color borderLight = accentLight;
