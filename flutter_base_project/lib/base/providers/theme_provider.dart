@@ -43,9 +43,9 @@ extension ThemeProviderExtensions on BuildContext {
   }
 
   void switchThemeMode() {
-    final newTheme = actualIsDarkMode() ? ThemeMode.light : ThemeMode.dark;
+    final newTheme = isDarkMode() ? ThemeMode.light : ThemeMode.dark;
     setThemeMode(newTheme);
   }
 
-  bool actualIsDarkMode() => getThemeMode() == ThemeMode.dark;
+  bool isDarkMode() => getThemeMode() == ThemeMode.dark;
 }

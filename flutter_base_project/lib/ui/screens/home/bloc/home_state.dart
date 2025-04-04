@@ -1,29 +1,46 @@
 import 'package:flutter_base_project/base/state_management/copyable.dart';
+import 'package:flutter_base_project/domain/models/product/product.dart';
 
-enum HomeStatus { initial }
+enum HomeListener { nothing, logoutSuccess }
 
 class HomeState implements Copyable<HomeState> {
   const HomeState({
-    this.status = HomeStatus.initial,
-    this.number = 1,
+    this.listener = HomeListener.nothing,
+    this.products = const [],
+    this.showLoading = false,
   });
 
-  final HomeStatus status;
-  final int number;
+  final HomeListener listener;
+  final List<Product> products;
+  final bool showLoading;
 
   @override
   HomeState copy() {
     return HomeState(
-      status: status,
-      number: number,
+      listener: listener,
+      products: products,
+      showLoading: showLoading,
     );
   }
 
   @override
-  HomeState copyWith({HomeStatus? status, int? number}) {
+  HomeState copyWith({
+    HomeListener? listener,
+    List<Product>? products,
+    bool? showLoading,
+  }) {
     return HomeState(
-      status: status ?? this.status,
-      number: number ?? this.number,
+      listener: listener ?? this.listener,
+      products: products ?? this.products,
+      showLoading: showLoading ?? this.showLoading,
     );
   }
+
+  HomeState loadProducts(List<Product> list) => copyWith(products: list);
+
+  HomeState isLoading(bool isLoading) => copyWith(showLoading: isLoading);
+
+  HomeState get logoutSuccess => copyWith(listener: HomeListener.logoutSuccess);
+
+  HomeState get resetListener => copyWith(listener: HomeListener.nothing);
 }

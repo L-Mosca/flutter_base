@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/base/providers/localization_provider.dart';
 import 'package:flutter_base_project/base/providers/theme_provider.dart';
 import 'package:flutter_base_project/localization/delegate/app_localization_delegate.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_base_project/localization/strings/en_us/en_us.dart';
 import 'package:flutter_base_project/localization/strings/pt_br/pt_br.dart';
 import 'package:flutter_base_project/router/app_router.dart';
 import 'package:flutter_base_project/ui/system_design/themes/app_themes.dart';
+import 'package:flutter_base_project/ui/system_design/themes/colors/color_token.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class App extends StatefulWidget {
@@ -36,12 +38,23 @@ class _AppState extends State<App> {
           themeMode: _themeMode,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          routes: AppRouter.routes,
-          initialRoute: "/",
+          initialRoute: AppRouter.splashRoute,
           localizationsDelegates: _localizationsDelegates,
           supportedLocales: _supportedLocales,
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
+          onGenerateRoute: _routes,
+          builder: (context, child) {
+            final brightness = Theme.of(context).brightness;
+            final colorToken = brightness == Brightness.dark
+                ? DarkColorToken()
+                : LightColorToken();
+
+            return ColorTokenProvider(
+              colorToken: colorToken,
+              child: child!,
+            );
+          },
         ),
       ),
     );
@@ -51,12 +64,16 @@ class _AppState extends State<App> {
       const [Locale("pt", "BR"), Locale("en", "US")];
 
   Iterable<LocalizationsDelegate<dynamic>>? get _localizationsDelegates => [
-    AppLocalizationDelegate(
-      ptBrLocalization: PtBr(),
-      enUsLocalization: EnUs(),
-    ),
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-  ];
+        AppLocalizationDelegate(
+          ptBrLocalization: PtBr(),
+          enUsLocalization: EnUs(),
+        ),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ];
+
+  Route<dynamic>? _routes(RouteSettings settings) {
+    return AppRouter.onGenerateRoute(settings, context);
+  }
 }

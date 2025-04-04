@@ -105,6 +105,8 @@ extension UserDtoExtension on UserDto? {
       name: "${this?.name?.firstName} ${this?.name?.lastName}",
       phone: this?.phone ?? "",
       email: this?.email ?? "",
+      password: this?.password ?? "",
+      username: this?.userName ?? "",
     );
   }
 }

@@ -1,57 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/base/page/base_stateless_page.dart';
-import 'package:flutter_base_project/base/providers/localization_provider.dart';
-import 'package:flutter_base_project/base/providers/theme_provider.dart';
-import 'package:flutter_base_project/localization/delegate/localization_extensions.dart';
+import 'package:flutter_base_project/router/app_router.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_bloc.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_event.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_state.dart';
-import 'package:flutter_base_project/ui/system_design/base_widgets/base_text.dart';
+import 'package:flutter_base_project/ui/screens/home/widgets/header/home_header.dart';
+import 'package:flutter_base_project/ui/screens/home/widgets/home_loading.dart';
+import 'package:flutter_base_project/ui/system_design/base_widgets/base_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends BaseStatelessPage<HomeBloc, HomeEvent, HomeState> {
+import 'widgets/product_list.dart';
+
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  Widget pageContent(BuildContext context, HomeState state) {
-    return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              BaseText(
-                text: context.appLocalizations.appName,
+  Widget build(BuildContext context) {
+    return BasePage<HomeBloc, HomeEvent, HomeState>(
+      listener: _onPageChanged,
+      builder: _pageContent,
+    );
+  }
+
+  Widget _pageContent(BuildContext context, HomeState state) {
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            HomeHeader(onLogoutPressed: () => _onLogoutPressed(context)),
+            Expanded(
+              child: Stack(
+                children: [
+                  ProductList(
+                    list: state.products,
+                    onProductPressed: (id) => _onProductPressed(context, id),
+                  ),
+                  if (state.showLoading) HomeLoading(),
+                ],
               ),
-              const SizedBox(height: 100.0),
-              ElevatedButton(
-                onPressed: () {
-                  final locale = context.getLocale() == Locale("pt", "BR")
-                      ? Locale("en", "US")
-                      : Locale("pt", "BR");
-                  context.setLocale(locale);
-                },
-                child: BaseText(text: "Mudar idioma"),
-              ),
-              SizedBox(height: 100.0),
-              ElevatedButton(
-                onPressed: context.switchThemeMode,
-                child: BaseText(text: "Mudar Tema"),
-              ),
-              SizedBox(height: 100.0),
-              ElevatedButton(
-                onPressed: () => context.read<HomeBloc>().add(HomeCountEvent()),
-                child: BaseText(text: state.number.toString()),
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  @override
-  void onPageChanged(BuildContext context, HomeState state) {}
+  void _onPageChanged(BuildContext context, HomeState state) {
+    _logoutSuccess(context, state);
+  }
+
+  void _onLogoutPressed(BuildContext context) =>
+      context.read<HomeBloc>().add(HomeLogoutEvent());
+
+  void _onProductPressed(BuildContext context, int productId) {
+    Navigator.pushNamed(
+      context,
+      AppRouter.productDetailRoute,
+      arguments: {AppRouter.productDetailIdArgument: productId},
+    );
+  }
+
+  void _logoutSuccess(BuildContext context, HomeState state) {
+    if (state.listener == HomeListener.logoutSuccess) {
+      Navigator.popAndPushNamed(context, AppRouter.loginRoute);
+      context.read<HomeBloc>().add(HomeResetListenerEvent());
+    }
+  }
 }

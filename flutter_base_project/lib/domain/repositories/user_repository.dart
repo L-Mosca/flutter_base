@@ -1,8 +1,19 @@
-import 'package:flutter_base_project/data/dto/login/login_body_dto.dart';
-import 'package:flutter_base_project/data/dto/login/login_response_dto.dart';
-import 'package:flutter_base_project/data/dto/user/user_dto.dart';
+import 'package:flutter_base_project/domain/models/login/login_response.dart';
+import 'package:flutter_base_project/domain/models/user/user.dart';
 
 abstract interface class UserRepository {
-  Future<LoginResponseDto> login({required LoginBodyDto loginBody});
-  Future<UserDto> getGenericUser();
+  Future<LoginResponse> login({
+    required String username,
+    required String password,
+  });
+
+  Future<void> logout();
+
+  Future<User> getGenericUser();
+
+  Future<void> saveUserToken({required String token});
+
+  Future<String?> getUserToken();
+
+  Future<bool> isLogged();
 }
