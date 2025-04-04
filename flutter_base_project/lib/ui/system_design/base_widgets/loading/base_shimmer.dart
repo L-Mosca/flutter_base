@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/loading/base_shimmer_effect.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
 
 class BaseShimmer extends StatelessWidget {
   const BaseShimmer({
@@ -24,7 +24,7 @@ class BaseShimmer extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: AppColors.shimmerPrimaryColor,
+          color: context.colors.shimmerPrimaryColor,
           borderRadius: BorderRadius.circular(borderRadius ?? 0.0),
         ),
       ),

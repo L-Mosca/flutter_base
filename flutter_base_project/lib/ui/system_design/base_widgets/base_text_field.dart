@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/base/providers/theme_provider.dart';
 import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
@@ -32,19 +33,14 @@ class BaseTextField extends StatefulWidget {
     this.decoration,
     this.fontWeight,
     this.fontHeight,
-    this.fontLightColor,
-    this.fontDarkColor,
+    this.fontColor,
 
     // Border
     this.borderRadius,
-    this.borderLightColor,
-    this.borderDarkColor,
-    this.borderFocusedLightColor,
-    this.borderFocusedDarkColor,
-    this.borderErrorLightColor,
-    this.borderErrorDarkColor,
-    this.borderEnabledLightColor,
-    this.borderEnabledDarkColor,
+    this.borderColor,
+    this.borderFocusedColor,
+    this.borderErrorColor,
+    this.borderEnabledColor,
 
     // Icon
     this.suffixIcon,
@@ -75,19 +71,14 @@ class BaseTextField extends StatefulWidget {
   final TextDecoration? decoration;
   final FontWeight? fontWeight;
   final double? fontHeight;
-  final Color? fontLightColor;
-  final Color? fontDarkColor;
+  final Color? fontColor;
 
   // Border
   final double? borderRadius;
-  final Color? borderLightColor;
-  final Color? borderDarkColor;
-  final Color? borderFocusedLightColor;
-  final Color? borderFocusedDarkColor;
-  final Color? borderErrorLightColor;
-  final Color? borderErrorDarkColor;
-  final Color? borderEnabledLightColor;
-  final Color? borderEnabledDarkColor;
+  final Color? borderColor;
+  final Color? borderFocusedColor;
+  final Color? borderErrorColor;
+  final Color? borderEnabledColor;
 
   // Icon
   final Widget? suffixIcon;
@@ -159,37 +150,16 @@ class _BaseTextFieldState extends State<BaseTextField> {
   }
 
   Color? _fontColor(bool isDarkMode) {
-    if (isDarkMode && widget.fontDarkColor != null) return widget.fontDarkColor;
-
-    if (!isDarkMode && widget.fontLightColor != null) {
-      return widget.fontLightColor;
-    }
-
-    return isDarkMode ? AppColors.fontDark : AppColors.fontLight;
+    if (widget.fontColor != null) return widget.fontColor;
+    return context.colors.text;
   }
 
   InputDecoration _hintStyle(TextStyle? textStyle, bool isDarkMode) {
     return InputDecoration(
-      border: _buildBorder(
-        widget.borderLightColor,
-        widget.borderDarkColor,
-        isDarkMode,
-      ),
-      enabledBorder: _buildBorder(
-        widget.borderEnabledLightColor,
-        widget.borderEnabledDarkColor,
-        isDarkMode,
-      ),
-      focusedBorder: _buildBorder(
-        widget.borderFocusedLightColor,
-        widget.borderFocusedDarkColor,
-        isDarkMode,
-      ),
-      errorBorder: _buildBorder(
-        widget.borderErrorLightColor,
-        widget.borderErrorDarkColor,
-        isDarkMode,
-      ),
+      border: _buildBorder(widget.borderColor, 0),
+      enabledBorder: _buildBorder(widget.borderEnabledColor, 1),
+      focusedBorder: _buildBorder(widget.borderFocusedColor, 2),
+      errorBorder: _buildBorder(widget.borderEnabledColor, 3),
       hintText: widget.hintText,
       labelStyle: _defaultTextStyle(textStyle, isDarkMode),
       hintStyle: _labelTextStyle(isDarkMode),
@@ -200,26 +170,27 @@ class _BaseTextFieldState extends State<BaseTextField> {
     );
   }
 
-  OutlineInputBorder _buildBorder(
-    Color? lightColor,
-    Color? darkColor,
-    bool isDarkMode,
-  ) {
+  OutlineInputBorder _buildBorder(Color? color, int index) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(
         widget.borderRadius ?? AppSizes.radiusMini,
       ),
       borderSide: BorderSide(
-        color: _getBorderColor(lightColor, darkColor, isDarkMode),
+        color: _getBorderColor(color, index),
         width: widget.borderWidth ?? 1.0,
       ),
     );
   }
 
-  Color _getBorderColor(Color? lightColor, Color? darkColor, bool isDarkMode) {
-    if (isDarkMode && darkColor != null) return darkColor;
-    if (!isDarkMode && lightColor != null) return lightColor;
-    return isDarkMode ? AppColors.borderDark : AppColors.borderLight;
+  Color _getBorderColor(Color? color, int index) {
+    if (color != null) return color;
+
+    if (index == 0) return context.colors.border;
+    if (index == 1) return context.colors.borderEnabled;
+    if (index == 2) return context.colors.borderFocused;
+    if (index == 3) return context.colors.borderError;
+
+    return context.colors.border;
   }
 
   TextStyle _labelTextStyle(bool isDarkMode) => TextStyle(

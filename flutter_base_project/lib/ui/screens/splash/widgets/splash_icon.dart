@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_svg_icon.dart';
 import 'package:flutter_base_project/utils/constants/app_icons.dart';
 
@@ -11,6 +12,7 @@ class SplashIcon extends StatelessWidget {
       iconPath: AppIcons.cart,
       width: 120.0,
       height: 120.0,
+      iconColor: context.colors.accent,
     );
   }
 }

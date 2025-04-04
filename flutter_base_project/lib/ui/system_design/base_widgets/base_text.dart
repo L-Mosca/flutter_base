@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/base/providers/theme_provider.dart';
 
 /// Enum to define text style design
@@ -27,9 +28,7 @@ enum TextType {
 ///
 /// [textAlign] - Text alignment
 ///
-/// [fontLightColor] - Text light font color
-///
-/// [fontDarkColor] - Text dark font color
+/// [fontColor] - Text font color
 ///
 /// [maxLines] - Text max lines
 ///
@@ -46,8 +45,7 @@ class BaseText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.textAlign,
-    this.fontLightColor,
-    this.fontDarkColor,
+    this.fontColor,
     this.maxLines,
     this.textOverflow,
     this.textType,
@@ -62,8 +60,7 @@ class BaseText extends StatelessWidget {
   final TextAlign? textAlign;
   final int? maxLines;
   final TextOverflow? textOverflow;
-  final Color? fontLightColor;
-  final Color? fontDarkColor;
+  final Color? fontColor;
   final TextType? textType;
   final TextDecoration? decoration;
   final double? height;
@@ -80,9 +77,9 @@ class BaseText extends StatelessWidget {
       overflow: textOverflow,
       style: textStyle?.copyWith(
         decoration: decoration,
-        decorationColor: _fontColor(isDarkMode),
+        decorationColor: _fontColor(isDarkMode, context),
         fontSize: fontSize,
-        color: _fontColor(isDarkMode),
+        color: _fontColor(isDarkMode, context),
         fontWeight: fontWeight,
         height: height,
       ),
@@ -94,10 +91,10 @@ class BaseText extends StatelessWidget {
     return textType!.getTextStyle(context);
   }
 
-  Color? _fontColor(bool isDarkMode) {
-    if (isDarkMode && fontDarkColor != null) return fontDarkColor!;
-    if (!isDarkMode && fontLightColor != null) return fontLightColor!;
-    return null;
+  Color? _fontColor(bool isDarkMode, BuildContext context) {
+    if (fontColor != null) return fontColor;
+
+    return context.colors.text;
   }
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/base/providers/theme_provider.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 
@@ -9,13 +9,11 @@ class BaseCard extends StatelessWidget {
     required this.child,
     this.width,
     this.height,
-    this.lightColor,
-    this.darkColor,
+    this.color,
     this.margin,
     this.padding,
     this.borderRadius,
-    this.borderLightColor,
-    this.borderDarkColor,
+    this.borderColor,
     this.borderWidth,
     this.elevation,
   });
@@ -23,48 +21,41 @@ class BaseCard extends StatelessWidget {
   final Widget child;
   final double? width;
   final double? height;
-  final Color? lightColor;
-  final Color? darkColor;
+  final Color? color;
 
   final EdgeInsets? margin;
   final EdgeInsets? padding;
 
   final double? borderRadius;
-  final Color? borderLightColor;
-  final Color? borderDarkColor;
+  final Color? borderColor;
   final double? borderWidth;
   final double? elevation;
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = context.isDarkMode();
-
     return Container(
       width: width,
       height: height,
       margin: margin,
       padding: padding,
       decoration: BoxDecoration(
-        color: _color(isDarkMode),
+        color: _color(context),
         borderRadius: _borderRadius,
-        border: _border(isDarkMode),
-        boxShadow: _shadow(isDarkMode),
+        border: _border(context),
+        boxShadow: _shadow(context),
       ),
       child: child,
     );
   }
 
-  List<BoxShadow> _shadow(bool isDarkMode) {
+  List<BoxShadow> _shadow(BuildContext context) {
     final cardElevation = elevation ?? 1;
 
     if (cardElevation == 0) return <BoxShadow>[];
 
-    final shadowColor = isDarkMode
-        ? AppColors.white.withValues(alpha: 0.2)
-        : AppColors.black.withValues(alpha: 0.2);
     return [
       BoxShadow(
-        color: shadowColor,
+        color: context.colors.shadow,
         blurRadius: 16.0,
         spreadRadius: (2 * cardElevation).toDouble(),
         offset: Offset(4, 4),
@@ -72,20 +63,18 @@ class BaseCard extends StatelessWidget {
     ];
   }
 
-  Color? _color(bool isDarkMode) {
-    if (!isDarkMode && lightColor != null) return lightColor!;
-    if (isDarkMode && darkColor != null) return darkColor!;
-    return null;
+  Color? _color(BuildContext context) {
+    if (color != null) return color;
+    return context.colors.cardColor;
   }
 
   BorderRadiusGeometry get _borderRadius =>
       BorderRadius.circular(borderRadius ?? AppSizes.radiusSmall);
 
-  BoxBorder _border(bool isDarkMode) {
+  BoxBorder _border(BuildContext context) {
     Color color = AppColors.transparent;
 
-    if (!isDarkMode && borderLightColor != null) color = borderLightColor!;
-    if (isDarkMode && borderDarkColor != null) color = borderDarkColor!;
+    if (borderColor != null) color = borderColor!;
 
     return Border.all(
       color: color,

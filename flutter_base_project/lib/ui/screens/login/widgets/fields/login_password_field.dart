@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/localization/delegate/localization_extensions.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_svg_icon.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_text_field.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_base_project/utils/constants/app_icons.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -55,7 +55,7 @@ class _LoginPasswordFieldState extends State<LoginPasswordField> {
         onPressed: null,
         icon: SvgPicture.asset(
           AppIcons.lock,
-          colorFilter: ColorFilter.mode(AppColors.gray300, BlendMode.srcIn),
+          colorFilter: ColorFilter.mode(context.colors.accent, BlendMode.srcIn),
         ),
       );
 
@@ -79,8 +79,7 @@ class _LoginPasswordFieldState extends State<LoginPasswordField> {
           width: 30.0,
           height: 30.0,
           iconPath: _eyeIcon,
-          iconDarkColor: AppColors.gray100,
-          iconLightColor: AppColors.gray300,
+          iconColor: context.colors.accent,
         ),
       ),
     );

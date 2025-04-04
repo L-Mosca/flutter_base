@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_text.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 
 class ProductDetailTitle extends StatelessWidget {
@@ -18,8 +17,6 @@ class ProductDetailTitle extends StatelessWidget {
       child: BaseText(
         text: title!,
         fontWeight: FontWeight.w700,
-        fontLightColor: AppColors.blueDark600,
-        fontDarkColor: AppColors.blueDark200,
         fontSize: 20.0,
       ),
     );

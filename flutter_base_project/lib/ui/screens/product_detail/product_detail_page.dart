@@ -10,7 +10,6 @@ import 'package:flutter_base_project/ui/screens/product_detail/widgets/product_d
 import 'package:flutter_base_project/ui/screens/product_detail/widgets/product_detail/product_detail_title.dart';
 import 'package:flutter_base_project/ui/screens/product_detail/widgets/product_detail_add_cart_button.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_page.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
 
 class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key});
@@ -27,7 +26,6 @@ class ProductDetailPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppbar(state.product?.title, context),
-        backgroundColor: AppColors.white,
         body: Column(
           children: [
             ProductDetailImage(imageUrl: state.product?.image),

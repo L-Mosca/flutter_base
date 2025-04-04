@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/utils/constants/app_constants.dart';
 
 class BaseShimmerEffect extends StatefulWidget {
@@ -44,9 +44,9 @@ class _BaseShimmerEffectState extends State<BaseShimmerEffect>
               begin: Alignment(-1, -1),
               end: Alignment(1, 1),
               colors: [
-                AppColors.shimmerPrimaryColor,
-                AppColors.shimmerSecondaryColor,
-                AppColors.shimmerPrimaryColor,
+                context.colors.shimmerPrimaryColor,
+                context.colors.shimmerSecondaryColor,
+                context.colors.shimmerPrimaryColor,
               ],
               stops: [
                 (_animation.value - 0.3).clamp(0.0, 1.0),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/localization/delegate/localization_extensions.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_svg_icon.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_text.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_base_project/utils/constants/app_icons.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 
@@ -33,8 +33,7 @@ class HomeHeader extends StatelessWidget {
                 iconPath: AppIcons.logout,
                 width: 28.0,
                 height: 28.0,
-                iconDarkColor: AppColors.accent,
-                iconLightColor: AppColors.accent,
+                iconColor: context.colors.accent,
               ),
             ),
           )

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_text.dart';
-import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 import 'package:intl/intl.dart';
 
@@ -25,8 +24,6 @@ class ProductCardPrice extends StatelessWidget {
       child: BaseText(
         text: " $formattedPrice",
         fontWeight: FontWeight.w600,
-        fontLightColor: AppColors.accent,
-        fontDarkColor: AppColors.accent,
         fontSize: AppSizes.fontLarge,
       ),
     );

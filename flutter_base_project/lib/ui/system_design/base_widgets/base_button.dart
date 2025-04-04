@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/base/providers/theme_provider.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_text.dart';
 import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_base_project/utils/constants/app_constants.dart';
@@ -12,8 +12,7 @@ class BaseButton extends StatelessWidget {
     required this.onPressed,
     this.color,
     this.borderRadius,
-    this.borderLightColor,
-    this.borderDarkColor,
+    this.borderColor,
     this.borderWidth,
     this.elevation,
     this.padding,
@@ -24,8 +23,7 @@ class BaseButton extends StatelessWidget {
     // Text attrs
     required this.text,
     this.fontSize,
-    this.fontLightColor,
-    this.fontDarkColor,
+    this.fontColor,
     this.fontStyle,
     this.fontWeight,
     this.textAlign,
@@ -35,8 +33,7 @@ class BaseButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Color? color;
   final double? borderRadius;
-  final Color? borderLightColor;
-  final Color? borderDarkColor;
+  final Color? borderColor;
   final double? borderWidth;
   final double? elevation;
   final EdgeInsets? padding;
@@ -47,15 +44,13 @@ class BaseButton extends StatelessWidget {
   // Text style
   final String text;
   final double? fontSize;
-  final Color? fontDarkColor;
-  final Color? fontLightColor;
+  final Color? fontColor;
   final FontStyle? fontStyle;
   final FontWeight? fontWeight;
   final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = context.isDarkMode();
     return AnimatedSwitcher(
       duration: AppConstants.defaultAnimationDuration,
       transitionBuilder: (Widget child, Animation<double> animation) {
@@ -64,58 +59,54 @@ class BaseButton extends StatelessWidget {
           child: child,
         );
       },
-      child: showLoading == true ? _loading(isDarkMode) : _button(isDarkMode),
+      child: showLoading == true ? _loading(context) : _button(context),
     );
   }
 
-  Widget _button(bool isDarkMode) {
+  Widget _button(BuildContext context) {
     return SizedBox(
       width: width,
       height: height,
       child: MaterialButton(
         padding: _buttonPadding,
         elevation: elevation,
-        color: color ?? AppColors.accent,
+        color: color ?? context.colors.accent,
         onPressed: onPressed,
-        shape: _borderShape(isDarkMode),
-        child: _buttonText(isDarkMode),
+        shape: _borderShape(),
+        child: _buttonText(context),
       ),
     );
   }
 
-  ShapeBorder _borderShape(bool isDarkMode) => RoundedRectangleBorder(
+  ShapeBorder _borderShape() => RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           borderRadius ?? AppSizes.radiusMini,
         ),
         side: BorderSide(
-          color: _borderColor(isDarkMode),
+          color: _borderColor(),
           width: borderWidth ?? 0,
         ),
       );
 
-  BaseText _buttonText(bool isDarkMode) {
+  BaseText _buttonText(BuildContext context) {
     return BaseText(
       text: text,
       fontSize: fontSize ?? AppSizes.fontMedium,
-      fontLightColor: _fontLightColor(isDarkMode),
-      fontDarkColor: _fontDarkColor(isDarkMode),
       fontWeight: fontWeight ?? FontWeight.w600,
       textAlign: textAlign,
+      fontColor: fontColor ?? context.colors.text,
     );
   }
 
-  Widget _loading(bool isDarkMode) {
+  Widget _loading(BuildContext context) {
     return Container(
       width: width,
       height: height,
       padding: _buttonPadding,
       decoration: BoxDecoration(
+        border: Border.all(color: _borderColor(), width: borderWidth ?? 1.0),
         borderRadius: BorderRadius.circular(
           borderRadius ?? AppSizes.radiusMini,
-        ),
-        border: Border.all(
-          color: _borderColor(isDarkMode),
-          width: borderWidth ?? 1.0,
         ),
       ),
       child: Align(
@@ -124,24 +115,12 @@ class BaseButton extends StatelessWidget {
           height: 22.0,
           width: 22.0,
           child: CircularProgressIndicator(
-            color: AppColors.accent,
+            color: context.colors.accent,
             strokeWidth: 3.0,
           ),
         ),
       ),
     );
-  }
-
-  Color _fontLightColor(bool isDarkMode) {
-    if (!isDarkMode && fontLightColor != null) return fontLightColor!;
-
-    return AppColors.white;
-  }
-
-  Color _fontDarkColor(bool isDarkMode) {
-    if (isDarkMode && fontDarkColor != null) return fontDarkColor!;
-
-    return AppColors.white;
   }
 
   EdgeInsets get _buttonPadding =>
@@ -151,13 +130,8 @@ class BaseButton extends StatelessWidget {
         vertical: 14.0,
       );
 
-  Color _borderColor(bool isDarkMode) {
-    if (isDarkMode && borderDarkColor != null) {
-      return borderDarkColor!;
-    }
-    if (!isDarkMode && borderLightColor != null) {
-      return borderLightColor!;
-    }
+  Color _borderColor() {
+    if (borderColor != null) return borderColor!;
     return AppColors.transparent;
   }
 }

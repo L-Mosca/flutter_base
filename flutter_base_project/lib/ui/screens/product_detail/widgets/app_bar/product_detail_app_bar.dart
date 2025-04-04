@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/base/providers/color_token_provider.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_text.dart';
 import 'package:flutter_base_project/utils/constants/app_colors.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
@@ -20,12 +21,12 @@ class ProductDetailAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.white,
+      backgroundColor: context.colors.background,
       centerTitle: false,
       title: _title(),
       scrolledUnderElevation: 0.0,
       elevation: 0.0,
-      leading: _backButton(),
+      leading: _backButton(context),
       titleSpacing: 0.0,
     );
   }
@@ -39,15 +40,13 @@ class ProductDetailAppBar extends StatelessWidget
         text: title!,
         fontWeight: FontWeight.w700,
         fontSize: AppSizes.fontLarge,
-        fontDarkColor: AppColors.blueDark200,
-        fontLightColor: AppColors.blueDark600,
       ),
     );
   }
 
-  Widget _backButton() {
+  Widget _backButton(BuildContext context) {
     return Material(
-      color: AppColors.white,
+      color: context.colors.background,
       child: GestureDetector(
         onTap: onBackPressed,
         child: const Icon(

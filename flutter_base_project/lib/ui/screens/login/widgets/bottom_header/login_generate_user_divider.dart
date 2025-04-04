@@ -33,8 +33,6 @@ class LoginGenerateUserDivider extends StatelessWidget {
       text: context.strings.or.toUpperCase(),
       fontWeight: FontWeight.w600,
       fontSize: AppSizes.fontLarge,
-      fontDarkColor: AppColors.gray100,
-      fontLightColor: AppColors.gray300,
     );
   }
 
@@ -50,7 +48,7 @@ class LoginGenerateUserDivider extends StatelessWidget {
 
   Color _lineColor(BuildContext context) {
     final isDark = context.isDarkMode();
-    if (isDark) return AppColors.white;
+    if (isDark) return AppColors.blueDark600;
     return AppColors.gray100;
   }
 }
