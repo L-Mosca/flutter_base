@@ -11,7 +11,12 @@ import 'package:flutter_base_project/ui/system_design/themes/colors/color_token.
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class App extends StatefulWidget {
-  const App({super.key});
+  const App({
+    super.key,
+    required this.isDarkMode,
+  });
+
+  final bool isDarkMode;
 
   @override
   State<App> createState() => _AppState();
@@ -24,6 +29,12 @@ class _AppState extends State<App> {
   void _setLocale(Locale locale) => {setState(() => _locale = locale)};
 
   void _setTheme(ThemeMode theme) => {setState(() => _themeMode = theme)};
+
+  @override
+  void initState() {
+    _themeMode = widget.isDarkMode ? ThemeMode.dark : ThemeMode.light;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

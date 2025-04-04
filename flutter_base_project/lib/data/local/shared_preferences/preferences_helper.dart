@@ -6,6 +6,8 @@ abstract interface class PreferencesHelper {
   // User
   Future<void> saveUserToken({required String token});
   Future<String?> getUserToken();
+  Future<void> saveThemeMode({required bool isDarkMode});
+  Future<bool> getThemeMode();
 
   // Cart
   Future<Cart> getCart();

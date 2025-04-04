@@ -15,7 +15,6 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
   }) : super(const HomeState()) {
     on<HomeInitEvent>(_init);
     on<HomeFetchProductsEvent>(_fetchProducts);
-    on<HomeLogoutEvent>(_logout);
     on<HomeResetListenerEvent>(_resetListener);
   }
 
@@ -37,17 +36,6 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     HomeFetchProductsEvent event,
     Emitter<HomeState> emitter,
   ) async {}
-
-  void _logout(HomeLogoutEvent event, Emitter<HomeState> emitter) async {
-    await defaultLaunch(
-      function: () async {
-        await userRepository.logout();
-        emitter(state.logoutSuccess);
-      },
-      exceptionHandler: (exception) {},
-      loadingStatus: (isLoading) {},
-    );
-  }
 
   void _resetListener(
     HomeResetListenerEvent event,

@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            HomeHeader(onLogoutPressed: () => _onLogoutPressed(context)),
+            HomeHeader(onSettingsPressed: () => _onSettingsPressed(context)),
             Expanded(
               child: Stack(
                 children: [
@@ -48,8 +48,8 @@ class HomePage extends StatelessWidget {
     _logoutSuccess(context, state);
   }
 
-  void _onLogoutPressed(BuildContext context) =>
-      context.read<HomeBloc>().add(HomeLogoutEvent());
+  void _onSettingsPressed(BuildContext context) =>
+      Navigator.pushNamed(context, AppRouter.settingsRoute);
 
   void _onProductPressed(BuildContext context, int productId) {
     Navigator.pushNamed(

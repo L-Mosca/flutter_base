@@ -7,9 +7,9 @@ import 'package:flutter_base_project/utils/constants/app_icons.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key, required this.onLogoutPressed});
+  const HomeHeader({super.key, required this.onSettingsPressed});
 
-  final void Function() onLogoutPressed;
+  final void Function() onSettingsPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +26,11 @@ class HomeHeader extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: onLogoutPressed,
+            onTap: onSettingsPressed,
             child: Container(
               padding: const EdgeInsets.all(AppSizes.marginSmall),
               child: BaseSvgIcon(
-                iconPath: AppIcons.logout,
+                iconPath: AppIcons.settings,
                 width: 28.0,
                 height: 28.0,
                 iconColor: context.colors.accent,

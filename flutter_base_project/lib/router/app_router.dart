@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_project/router/routes/home/home_router.dart';
 import 'package:flutter_base_project/router/routes/login/login_router.dart';
 import 'package:flutter_base_project/router/routes/product_detail/product_detail_router.dart';
+import 'package:flutter_base_project/router/routes/settings/settings_router.dart';
 import 'package:flutter_base_project/router/routes/splash/splash_router.dart';
 import 'package:flutter_base_project/utils/constants/app_constants.dart';
 
@@ -13,6 +14,7 @@ class AppRouter {
   static const homeRoute = "/home";
   static const loginRoute = "/login";
   static const productDetailRoute = "/productDetail";
+  static const settingsRoute = "/settings";
 
   // Route arguments
   static const productDetailIdArgument = "productDetailId";
@@ -33,6 +35,8 @@ class AppRouter {
           ProductDetailRouter.page(context, settings),
           RouteAnimation.scale,
         );
+      case settingsRoute:
+        return _buildPageWithAnimation(SettingsRouter.page);
       default:
         return null;
     }
