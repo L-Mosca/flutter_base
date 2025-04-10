@@ -16,6 +16,9 @@ abstract class AppLocalization {
 
   // Product Detail Page
   String get addToCart;
+  String get somethingWrong;
+  String get productDetailError;
+  String get tryAgain;
 
   // Settings Page
   String get settings;

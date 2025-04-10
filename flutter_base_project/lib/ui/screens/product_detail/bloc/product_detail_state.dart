@@ -1,56 +1,64 @@
 import 'package:flutter_base_project/base/state_management/copyable.dart';
 import 'package:flutter_base_project/domain/models/product/product.dart';
 
+enum ProductDetailStatus { initial, loading, error }
+
 class ProductDetailState implements Copyable<ProductDetailState> {
   const ProductDetailState({
+    this.status = ProductDetailStatus.initial,
     this.productId = -1,
     this.product,
-    this.showLoading = false,
-    this.showErrorPlaceholder = false,
   });
 
+  final ProductDetailStatus status;
   final int productId;
   final Product? product;
-  final bool showLoading;
-  final bool showErrorPlaceholder;
 
   @override
   ProductDetailState copy() {
     return ProductDetailState(
+      status: status,
       productId: productId,
       product: product,
-      showLoading: showLoading,
-      showErrorPlaceholder: showErrorPlaceholder,
     );
   }
 
   @override
   ProductDetailState copyWith({
+    ProductDetailStatus? status,
     int? productId,
     Product? product,
-    bool? showLoading,
-    bool? showErrorPlaceholder,
   }) {
     return ProductDetailState(
+      status: status ?? this.status,
       productId: productId ?? this.productId,
       product: product ?? this.product,
-      showLoading: showLoading ?? this.showLoading,
-      showErrorPlaceholder: showErrorPlaceholder ?? this.showErrorPlaceholder,
     );
   }
 
-  ProductDetailState isLoading(bool isLoading) => copyWith(
-        showLoading: isLoading,
-      );
+  ProductDetailState isLoading(bool isLoading) {
+    ProductDetailStatus newStatus = status;
+    if (isLoading) {
+      newStatus = ProductDetailStatus.loading;
+    } else {
+      newStatus = ProductDetailStatus.initial;
+    }
 
-  ProductDetailState showError(bool isError) => copyWith(
-        showLoading: !isError,
-        showErrorPlaceholder: isError,
-      );
+    return copyWith(status: newStatus);
+  }
+
+  ProductDetailState showError(bool isError) {
+    ProductDetailStatus newStatus = status;
+    if (isError) {
+      newStatus = ProductDetailStatus.error;
+    } else {
+      newStatus = ProductDetailStatus.initial;
+    }
+    return copyWith(status: newStatus);
+  }
 
   ProductDetailState loadProduct(Product productDetail) => copyWith(
         product: productDetail,
-        showLoading: false,
-        showErrorPlaceholder: false,
+        status: ProductDetailStatus.initial,
       );
 }

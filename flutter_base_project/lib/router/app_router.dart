@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/router/routes/cart/cart_router.dart';
 import 'package:flutter_base_project/router/routes/home/home_router.dart';
 import 'package:flutter_base_project/router/routes/login/login_router.dart';
 import 'package:flutter_base_project/router/routes/product_detail/product_detail_router.dart';
@@ -15,6 +16,7 @@ class AppRouter {
   static const loginRoute = "/login";
   static const productDetailRoute = "/productDetail";
   static const settingsRoute = "/settings";
+  static const cartRoute = "/cart";
 
   // Route arguments
   static const productDetailIdArgument = "productDetailId";
@@ -37,6 +39,8 @@ class AppRouter {
         );
       case settingsRoute:
         return _buildPageWithAnimation(SettingsRouter.page);
+      case cartRoute:
+        return _buildPageWithAnimation(CartRouter.page, RouteAnimation.scale);
       default:
         return null;
     }

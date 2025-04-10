@@ -18,6 +18,9 @@ class EnUs extends AppLocalization {
 
   // Product Detail Page
   @override String get addToCart => "Add To Cart";
+  @override String get somethingWrong => "Something went worng";
+  @override String get productDetailError => "An error has occurred to search product details, please try again later.";
+  @override String get tryAgain => "Try again";
 
   // Settings Page
   @override String get settings => "Settings";

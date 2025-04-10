@@ -29,9 +29,5 @@ class ProductDetailPrice extends StatelessWidget {
     );
   }
 
-  EdgeInsets get _margin => const EdgeInsets.only(
-    left: AppSizes.marginMedium,
-    right: AppSizes.marginMedium,
-    top: AppSizes.marginMedium,
-  );
+  EdgeInsets get _margin => const EdgeInsets.all(AppSizes.marginMedium);
 }
