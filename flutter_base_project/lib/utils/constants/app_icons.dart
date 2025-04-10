@@ -8,4 +8,6 @@ class AppIcons {
   static const settings = "assets/icons/ic_settings.svg";
   static const moon = "assets/icons/ic_moon.svg";
   static const error = "assets/icons/ic_error.svg";
+  static const minus = "assets/icons/ic_minus.svg";
+  static const plus = "assets/icons/ic_plus.svg";
 }

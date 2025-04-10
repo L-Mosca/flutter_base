@@ -26,4 +26,11 @@ class PtBr implements AppLocalization {
   @override String get settings => "Configurações";
   @override String get darkMode => "Dark mode";
   @override String get logout => "Sair";
+
+  // Cart Page
+  @override String get cart => "Carrinho";
+  @override String get checkOut => "Finalizar Pedido";
+  @override String get items => "Itens";
+  @override String get tax => "Impostos";
+  @override String get totalPrice => "Preço Total";
 }

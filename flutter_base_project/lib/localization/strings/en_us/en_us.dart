@@ -26,4 +26,11 @@ class EnUs extends AppLocalization {
   @override String get settings => "Settings";
   @override String get darkMode => "Dark mode";
   @override String get logout => "Logout";
+
+  // Cart Page
+  @override String get cart => "Cart";
+  @override String get checkOut => "Check Out";
+  @override String get items => "Items";
+  @override String get tax => "Tax";
+  @override String get totalPrice => "Total Price";
 }

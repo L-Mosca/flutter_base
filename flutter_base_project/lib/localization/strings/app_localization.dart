@@ -24,4 +24,11 @@ abstract class AppLocalization {
   String get settings;
   String get darkMode;
   String get logout;
+
+  // Cart Page
+  String get cart;
+  String get checkOut;
+  String get items;
+  String get tax;
+  String get totalPrice;
 }
