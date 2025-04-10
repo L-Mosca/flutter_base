@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_base_project/data/local/shared_preferences/preferences_helper.dart';
 import 'package:flutter_base_project/domain/models/cart/cart.dart';
 import 'package:flutter_base_project/domain/models/payment/credit_card.dart';
 import 'package:flutter_base_project/domain/models/payment/payment.dart';
-import 'package:flutter_base_project/domain/models/product/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesHelperImpl implements PreferencesHelper {
@@ -18,6 +19,7 @@ class PreferencesHelperImpl implements PreferencesHelper {
   // Constants
   final _userTokenKey = "Preferences.userTokenKey";
   final _themeModeKey = "Preferences.themeModeKey";
+  final _cartKey = "Preferences.cartKey";
 
   @override
   Future<void> saveUserToken({required String token}) async =>
@@ -41,62 +43,31 @@ class PreferencesHelperImpl implements PreferencesHelper {
   Future<void> addPayment() async {}
 
   @override
-  Future<void> addProduct({required Product product}) async {}
-
-  @override
-  Future<void> createCart({required Cart cart}) async {}
-
-  @override
   Future<void> deleteCard({required CreditCard card}) async {}
 
   @override
-  Future<void> deleteCart() async {}
+  Future<void> deleteCart() async =>
+      await _setString(key: _cartKey, value: null);
 
   @override
   Future<void> deletePayment() async {}
 
   @override
-  Future<void> deleteProduct({required Product product}) async {}
+  Future<List<CreditCard>> getCards() async => [];
 
   @override
-  Future<List<CreditCard>> getCards() async {
-    return [];
-  }
-
-  @override
-  Future<Cart> getCart() async {
-    return Cart(
-      id: 0,
-      products: [],
-      payment: Payment(
-        card: CreditCard(
-          id: 0,
-          number: "",
-          date: "",
-          securityNumber: "",
-        ),
-        times: 0,
-        totalValue: 0.0,
-      ),
-    );
+  Future<Cart?> getCart() async {
+    final raw = await _getString(key: _cartKey);
+    final jsonData = jsonDecode(raw ?? "");
+    final cart = Cart.fromJson(jsonData);
+    return cart;
   }
 
   @override
   Future<Cart> updateCart({required Cart cart}) async {
-    return Cart(
-      id: 0,
-      products: [],
-      payment: Payment(
-        card: CreditCard(
-          id: 0,
-          number: "",
-          date: "",
-          securityNumber: "",
-        ),
-        times: 0,
-        totalValue: 0.0,
-      ),
-    );
+    final json = jsonEncode(cart.toJson());
+    await _setString(key: _cartKey, value: json);
+    return cart;
   }
 
   Future<void> _setInt({required String key, required int? value}) async {

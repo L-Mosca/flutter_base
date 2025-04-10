@@ -49,17 +49,15 @@ class ProductDetailPage extends StatelessWidget {
       children: [
         ProductDetail(product: state.product),
         ProductDetailAddCartButton(
-          onPressed: () => _onAddToCartPressed(context, state),
+          onPressed: () => _onAddToCartPressed(context),
         ),
       ],
     );
   }
 
-  void _onAddToCartPressed(BuildContext context, ProductDetailState state) {
-    Navigator.pushNamed(context, AppRouter.cartRoute);
+  void _onAddToCartPressed(BuildContext context) {
+    context.read<ProductDetailBloc>().add(ProductDetailAddToCartEvent());
   }
-
-  void _onChange(BuildContext context, ProductDetailState state) {}
 
   PreferredSizeWidget _buildAppbar(String? title, BuildContext context) {
     return ProductDetailAppBar(
@@ -70,4 +68,11 @@ class ProductDetailPage extends StatelessWidget {
 
   void _onReloadPressed(BuildContext context) =>
       context.read<ProductDetailBloc>().add(ProductDetailReloadEvent());
+
+  void _onChange(BuildContext context, ProductDetailState state) {
+    if (state.listener == ProductDetailListener.addToCartSuccess) {
+      Navigator.pushNamed(context, AppRouter.cartRoute);
+      context.read<ProductDetailBloc>().add(ProductDetailResetListenerEvent());
+    }
+  }
 }

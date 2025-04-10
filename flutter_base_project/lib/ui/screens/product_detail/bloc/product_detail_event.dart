@@ -7,3 +7,7 @@ class ProductDetailInitEvent extends ProductDetailEvent {
 }
 
 class ProductDetailReloadEvent extends ProductDetailEvent {}
+
+class ProductDetailAddToCartEvent extends ProductDetailEvent {}
+
+class ProductDetailResetListenerEvent extends ProductDetailEvent {}
