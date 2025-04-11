@@ -15,6 +15,7 @@ class BaseCard extends StatelessWidget {
     this.borderRadius,
     this.borderColor,
     this.borderWidth,
+    this.customBorder,
     this.elevation,
   });
 
@@ -29,6 +30,7 @@ class BaseCard extends StatelessWidget {
   final double? borderRadius;
   final Color? borderColor;
   final double? borderWidth;
+  final BorderRadiusGeometry? customBorder;
   final double? elevation;
 
   @override
@@ -40,7 +42,7 @@ class BaseCard extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: _color(context),
-        borderRadius: _borderRadius,
+        borderRadius: customBorder ?? _borderRadius,
         border: _border(context),
         boxShadow: _shadow(context),
       ),

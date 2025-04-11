@@ -1,6 +1,5 @@
 import 'package:flutter_base_project/domain/models/cart/cart.dart';
 import 'package:flutter_base_project/domain/models/payment/credit_card.dart';
-import 'package:flutter_base_project/domain/models/product/product.dart';
 
 abstract interface class PreferencesHelper {
   // User
@@ -10,14 +9,9 @@ abstract interface class PreferencesHelper {
   Future<bool> getThemeMode();
 
   // Cart
-  Future<Cart> getCart();
-  Future<void> createCart({required Cart cart});
+  Future<Cart?> getCart();
   Future<void> deleteCart();
   Future<Cart> updateCart({required Cart cart});
-
-  // Product
-  Future<void> addProduct({required Product product});
-  Future<void> deleteProduct({required Product product});
 
   // Payment
   Future<void> addPayment();

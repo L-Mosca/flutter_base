@@ -16,9 +16,22 @@ abstract class AppLocalization {
 
   // Product Detail Page
   String get addToCart;
+  String get somethingWrong;
+  String get productDetailError;
+  String get tryAgain;
 
   // Settings Page
   String get settings;
   String get darkMode;
   String get logout;
+
+  // Cart Page
+  String get cart;
+  String get checkOut;
+  String get items;
+  String get tax;
+  String get totalPrice;
+
+  // Home Cart Container
+  String get seeCart;
 }

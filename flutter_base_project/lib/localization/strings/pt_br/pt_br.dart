@@ -18,9 +18,22 @@ class PtBr implements AppLocalization {
 
   // Product Detail Page
   @override String get addToCart => "Adicionar ao Carrinho";
+  @override String get somethingWrong => "Algo deu errado";
+  @override String get productDetailError => "Ocorreu um erro ao buscar as informações sobre o produto, por favor tente novamente mais tarde.";
+  @override String get tryAgain => "Tentar novamente";
 
   // Settings Page
   @override String get settings => "Configurações";
   @override String get darkMode => "Dark mode";
   @override String get logout => "Sair";
+
+  // Cart Page
+  @override String get cart => "Carrinho";
+  @override String get checkOut => "Finalizar Pedido";
+  @override String get items => "Itens";
+  @override String get tax => "Impostos";
+  @override String get totalPrice => "Preço Total";
+
+  // Home Cart Container
+  @override String get seeCart => "Ver Carrinho";
 }

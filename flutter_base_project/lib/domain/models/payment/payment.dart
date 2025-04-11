@@ -16,8 +16,15 @@ class Payment {
     return 'Payment{card: $card, times: $times, totalValue: $totalValue}';
   }
 
+  Payment.createDefaultPayment()
+      : card = CreditCard.createDefaultCard(),
+        times = 1,
+        totalValue = 0.0;
+
+  void updateTotalValue(double newValue) => totalValue = newValue;
+
   Payment.fromJson(Map<String, dynamic> json)
-      : card = json["card"],
+      : card = CreditCard.fromJson(json["card"]),
         times = json["times"],
         totalValue = json["totalValue"];
 

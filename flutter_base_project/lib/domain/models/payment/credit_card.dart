@@ -16,6 +16,12 @@ class CreditCard {
     return 'CreditCard{id: $id, number: $number, date: $date, securityNumber: $securityNumber}';
   }
 
+  CreditCard.createDefaultCard()
+      : id = 0,
+        number = "",
+        date = "",
+        securityNumber = "";
+
   CreditCard.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         number = json['number'],
