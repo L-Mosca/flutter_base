@@ -33,4 +33,7 @@ class EnUs extends AppLocalization {
   @override String get items => "Items";
   @override String get tax => "Tax";
   @override String get totalPrice => "Total Price";
+
+  // Home Cart Container
+  @override String get seeCart => "See Cart";
 }

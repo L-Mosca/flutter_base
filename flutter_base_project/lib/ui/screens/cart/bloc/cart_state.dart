@@ -1,7 +1,7 @@
 import 'package:flutter_base_project/base/state_management/copyable.dart';
 import 'package:flutter_base_project/domain/models/cart/cart.dart';
 
-enum CartListener { nothing, checkOutSuccess }
+enum CartListener { nothing, checkOutSuccess, emptyCard }
 
 class CartState implements Copyable<CartState> {
   const CartState({
@@ -31,9 +31,12 @@ class CartState implements Copyable<CartState> {
     );
   }
 
-  CartState get checkOutSuccess => copyWith(
+  CartState checkOutSuccess(Cart? newCart) => copyWith(
         listener: CartListener.checkOutSuccess,
+        cart: newCart,
       );
 
   CartState get resetListener => copyWith(listener: CartListener.nothing);
+
+  CartState get cartIsEmpty => copyWith(listener: CartListener.emptyCard);
 }

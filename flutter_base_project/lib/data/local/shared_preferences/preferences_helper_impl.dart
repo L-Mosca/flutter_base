@@ -45,8 +45,10 @@ class PreferencesHelperImpl implements PreferencesHelper {
   Future<void> deleteCard({required CreditCard card}) async {}
 
   @override
-  Future<void> deleteCart() async =>
-      await _setString(key: _cartKey, value: null);
+  Future<void> deleteCart() async {
+    final json = jsonEncode(Cart.createNewCart().toJson());
+    await _setString(key: _cartKey, value: json);
+  }
 
   @override
   Future<void> deletePayment() async {}

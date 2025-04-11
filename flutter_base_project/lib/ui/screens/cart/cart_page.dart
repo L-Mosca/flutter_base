@@ -22,10 +22,8 @@ class CartPage extends StatelessWidget {
   }
 
   void _onChange(BuildContext context, CartState state) {
-    if (state.listener == CartListener.checkOutSuccess) {
-      Navigator.pop(context);
-      context.read<CartBloc>().add(CartResetListenerEvent());
-    }
+    _checkoutSuccess(context, state);
+    _emptyCard(context, state);
   }
 
   Widget _pageContent(BuildContext context, CartState state) {
@@ -59,4 +57,18 @@ class CartPage extends StatelessWidget {
 
   void _onCheckOutPressed(BuildContext context) =>
       context.read<CartBloc>().add(CartCheckOutEvent());
+
+  void _checkoutSuccess(BuildContext context, CartState state) {
+    if (state.listener == CartListener.checkOutSuccess) {
+      Navigator.pop(context);
+      context.read<CartBloc>().add(CartResetListenerEvent());
+    }
+  }
+
+  void _emptyCard(BuildContext context, CartState state) {
+    if (state.listener == CartListener.emptyCard) {
+      Navigator.pop(context);
+      context.read<CartBloc>().add(CartResetListenerEvent());
+    }
+  }
 }

@@ -31,4 +31,7 @@ abstract class AppLocalization {
   String get items;
   String get tax;
   String get totalPrice;
+
+  // Home Cart Container
+  String get seeCart;
 }

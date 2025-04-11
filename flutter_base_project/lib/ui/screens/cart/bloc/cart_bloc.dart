@@ -34,7 +34,7 @@ class CartBloc extends BaseBloc<CartEvent, CartState> {
         final cart = state.cart;
         if (cart != null) {
           await cartRepository.checkOut(cart: cart);
-          emitter(state.checkOutSuccess);
+          emitter(state.checkOutSuccess(null));
         }
       },
       exceptionHandler: (exception) {},
@@ -64,6 +64,8 @@ class CartBloc extends BaseBloc<CartEvent, CartState> {
         final product = event.product;
         final newCart = await cartRepository.removeProduct(product: product);
         emitter(state.copyWith(cart: newCart));
+
+        if (newCart?.products.isEmpty == true) emitter(state.cartIsEmpty);
       },
     );
   }

@@ -21,6 +21,8 @@ class AppRouter {
   // Route arguments
   static const productDetailIdArgument = "productDetailId";
 
+  static RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
   static Route<dynamic>? onGenerateRoute(
     RouteSettings settings,
     BuildContext context,

@@ -55,6 +55,7 @@ class _AppState extends State<App> {
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
           onGenerateRoute: _routes,
+          navigatorObservers: [AppRouter.routeObserver],
           builder: (context, child) {
             final brightness = Theme.of(context).brightness;
             final colorToken = brightness == Brightness.dark

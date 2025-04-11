@@ -33,4 +33,7 @@ class PtBr implements AppLocalization {
   @override String get items => "Itens";
   @override String get tax => "Impostos";
   @override String get totalPrice => "Preço Total";
+
+  // Home Cart Container
+  @override String get seeCart => "Ver Carrinho";
 }
