@@ -1,11 +1,6 @@
 # flutter_base
 flutter base project
 
-## Dependency injection
-
-In this app, I created my own Injector class that uses the [GetIt](https://pub.dev/packages/get_it) package to provide class instances following the Singleton pattern.
-This makes the dependency injection independent of any external package, since GetIt can easily be replaced by any other dependency injection solution if needed.
-
 ## Project Structure
 
 ```
@@ -120,7 +115,14 @@ Responsible for fetching data (from internal or external sources). Contains repo
 
 ___
 
+## Dependency injection
 
+In this app, I created my own Injector class that uses the [GetIt](https://pub.dev/packages/get_it) package to provide class instances following the Singleton pattern.
+This makes the dependency injection independent of any external package, since GetIt can easily be replaced by any other dependency injection solution if needed.
+
+<img src="screenshots/di.png" alt="presentation" width="600" height="500" />
+
+___
 
 
 
