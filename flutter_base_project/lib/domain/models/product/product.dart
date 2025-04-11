@@ -6,6 +6,7 @@ class Product {
   String? category;
   String? image;
   ProductRating? rating;
+  int quantity;
 
   Product({
     this.id,
@@ -15,14 +16,15 @@ class Product {
     this.category,
     this.image,
     this.rating,
+    this.quantity = 1,
   });
 
   @override
   String toString() {
-    return 'Product{id: $id, title: $title, price: $price, description: $description, category: $category, image: $image, rating: $rating}';
+    return 'Product{id: $id, title: $title, price: $price, description: $description, category: $category, image: $image, rating: $rating, quantity: $quantity}';
   }
 
-  Product.fromJson(Map<String, dynamic> json) {
+  Product.fromJson(Map<String, dynamic> json) : quantity = 1 {
     id = json["id"];
     title = json["title"];
     if (json["price"] is int) {
@@ -34,6 +36,7 @@ class Product {
     category = json["category"];
     image = json["image"];
     rating = ProductRating.fromJson(json["rating"]);
+    quantity = json["quantity"] ?? 1;
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +48,7 @@ class Product {
     data["category"] = category;
     data["image"] = image;
     data["rating"] = rating?.toJson();
+    data["quantity"] = quantity;
     return data;
   }
 }
@@ -73,17 +77,5 @@ class ProductRating {
     data["rate"] = rate;
     data["count"] = count;
     return data;
-  }
-}
-
-extension ProductListExtension on dynamic {
-  List<Product> toProductList() {
-    final list = <Product>[];
-    if (this != null) {
-      forEach((key, value) {
-        list.add(Product.fromJson(value));
-      });
-    }
-    return list;
   }
 }

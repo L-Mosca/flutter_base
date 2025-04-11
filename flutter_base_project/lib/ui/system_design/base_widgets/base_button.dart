@@ -16,6 +16,7 @@ class BaseButton extends StatelessWidget {
     this.borderWidth,
     this.elevation,
     this.padding,
+    this.margin,
     this.height,
     this.width,
     this.showLoading,
@@ -37,6 +38,7 @@ class BaseButton extends StatelessWidget {
   final double? borderWidth;
   final double? elevation;
   final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final double? width;
   final double? height;
   final bool? showLoading;
@@ -64,9 +66,10 @@ class BaseButton extends StatelessWidget {
   }
 
   Widget _button(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: width,
       height: height,
+      margin: margin,
       child: MaterialButton(
         padding: _buttonPadding,
         elevation: elevation,

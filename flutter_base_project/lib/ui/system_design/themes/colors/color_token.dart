@@ -13,6 +13,8 @@ abstract class ColorToken {
   Color get borderError;
   Color get borderEnabled;
 
+  Color get buttonFontColor;
+
   Color get shimmerPrimaryColor;
   Color get shimmerSecondaryColor;
 
@@ -24,6 +26,15 @@ abstract class ColorToken {
 
   Color get toast;
   Color get snackBar;
+
+  Color get line;
+
+  Color get imageBackground;
+  Color get hover;
+
+  Color get productCardBorder;
+  Color get cartSummaryText;
+  Color get cartContainer;
 }
 
 class LightColorToken implements ColorToken {
@@ -38,6 +49,8 @@ class LightColorToken implements ColorToken {
   @override Color get borderError => AppColors.borderLight;
   @override Color get borderEnabled => AppColors.borderLight;
 
+  @override Color get buttonFontColor => AppColors.white;
+
   @override Color get shimmerPrimaryColor => AppColors.shimmerPrimaryLightColor;
   @override Color get shimmerSecondaryColor => AppColors.shimmerSecondaryLightColor;
 
@@ -49,6 +62,15 @@ class LightColorToken implements ColorToken {
 
   @override Color get toast => AppColors.darkGrey;
   @override Color get snackBar => AppColors.accentLight;
+
+  @override Color get line => AppColors.blueDark800;
+
+  @override Color get imageBackground => AppColors.gray100;
+  @override Color get hover => AppColors.blue200;
+
+  @override Color get productCardBorder => AppColors.gray100;
+  @override Color get cartSummaryText => AppColors.gray400;
+  @override Color get cartContainer => AppColors.white;
 }
 
 class DarkColorToken implements ColorToken {
@@ -63,6 +85,8 @@ class DarkColorToken implements ColorToken {
   @override Color get borderError => AppColors.borderDark;
   @override Color get borderEnabled => AppColors.borderDark;
 
+  @override Color get buttonFontColor => AppColors.white;
+
   @override Color get shimmerPrimaryColor => AppColors.shimmerPrimaryDarkColor;
   @override Color get shimmerSecondaryColor => AppColors.shimmerSecondaryDarkColor;
 
@@ -74,4 +98,13 @@ class DarkColorToken implements ColorToken {
 
   @override Color get toast => AppColors.blueDark600;
   @override Color get snackBar => AppColors.accentDark;
+
+  @override Color get line => AppColors.blueDark400;
+
+  @override Color get imageBackground => AppColors.blueDark800;
+  @override Color get hover => AppColors.blueDark400;
+
+  @override Color get productCardBorder => AppColors.blueDark600;
+  @override Color get cartSummaryText => AppColors.gray200;
+  @override Color get cartContainer => AppColors.blueDark700;
 }
