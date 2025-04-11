@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/base/providers/color_token_provider.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/bloc/home_cart_state.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/widgets/home_cart_container_button.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/widgets/home_cart_container_texts.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/bloc/home_cart_state.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/widgets/home_cart_container_button.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/widgets/home_cart_container_texts.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_card.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 

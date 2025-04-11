@@ -1,7 +1,7 @@
 import 'package:flutter_base_project/base/state_management/base_bloc.dart';
 import 'package:flutter_base_project/domain/repositories/cart_repository.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/bloc/home_cart_event.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/bloc/home_cart_state.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/bloc/home_cart_event.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/bloc/home_cart_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCartBloc extends BaseBloc<HomeCartEvent, HomeCartState> {

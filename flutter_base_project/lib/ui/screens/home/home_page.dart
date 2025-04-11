@@ -3,11 +3,10 @@ import 'package:flutter_base_project/router/app_router.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_bloc.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_event.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_state.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/widgets/home_cart_container.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/header/home_header.dart';
 import 'package:flutter_base_project/ui/screens/home/widgets/home_loading.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_page.dart';
-
-import '../home_cart/widgets/home_cart_container.dart';
 import 'widgets/product_list.dart';
 
 class HomePage extends StatelessWidget {

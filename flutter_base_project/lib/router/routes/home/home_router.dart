@@ -5,9 +5,9 @@ import 'package:flutter_base_project/domain/repositories/product_repository.dart
 import 'package:flutter_base_project/domain/repositories/user_repository.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_bloc.dart';
 import 'package:flutter_base_project/ui/screens/home/bloc/home_event.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/bloc/home_cart_bloc.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/bloc/home_cart_event.dart';
 import 'package:flutter_base_project/ui/screens/home/home_page.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/bloc/home_cart_bloc.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/bloc/home_cart_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeRouter {

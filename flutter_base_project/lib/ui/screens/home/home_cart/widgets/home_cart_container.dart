@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/router/app_router.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/bloc/home_cart_bloc.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/bloc/home_cart_event.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/bloc/home_cart_state.dart';
-import 'package:flutter_base_project/ui/screens/home_cart/widgets/home_cart_card.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/bloc/home_cart_bloc.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/bloc/home_cart_event.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/bloc/home_cart_state.dart';
+import 'package:flutter_base_project/ui/screens/home/home_cart/widgets/home_cart_card.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
