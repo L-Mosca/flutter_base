@@ -24,8 +24,10 @@ class Cart {
 
   Cart.fromJson(Map<String, dynamic> json)
       : id = json["id"],
-        products = json["products"].toProductList(),
-        payment = Payment.fromJson(json["payment"]);
+        products = [],
+        payment = Payment.fromJson(json["payment"]) {
+    products = toProductList(json["products"]);
+  }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -36,17 +38,44 @@ class Cart {
   }
 
   void addProduct(Product product) {
-    products.add(product);
+    final index = products.indexWhere((p) => p.id == product.id);
+    // Has product in list, change quantity
+    if (index != -1) {
+      final newProduct = products[index];
+      newProduct.quantity = newProduct.quantity + 1;
+      products[index] = newProduct;
+    } else {
+      products.add(product);
+    }
     updateTotalValue();
   }
 
   void removeProduct(Product product) {
-    products.remove(product);
+    final index = products.indexWhere((p) => p.id == product.id);
+    if (index != -1) {
+      final newProduct = products[index];
+      newProduct.quantity = newProduct.quantity - 1;
+      if (newProduct.quantity <= 0) {
+        products.removeAt(index);
+      } else {
+        products[index] = newProduct;
+      }
+    }
     updateTotalValue();
   }
 
   void updateTotalValue() {
-    final total = products.fold(0.0, (sum, product) => sum + (product.price ?? 0.0));
+    final total =
+        products.fold(0.0, (sum, product) => sum + ((product.price ?? 0.0) * product.quantity));
     payment.updateTotalValue(total);
+  }
+
+  List<Product> toProductList(dynamic data) {
+    if (data is List) {
+      return (data)
+          .map((e) => Product.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return [];
   }
 }

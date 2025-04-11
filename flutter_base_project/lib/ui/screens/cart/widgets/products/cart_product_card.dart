@@ -11,10 +11,14 @@ class CartProductCard extends StatelessWidget {
     super.key,
     required this.product,
     required this.index,
+    required this.onNewProductPressed,
+    required this.onMinusProductPressed,
   });
 
   final Product product;
   final int index;
+  final void Function(Product) onNewProductPressed;
+  final void Function(Product) onMinusProductPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,11 @@ class CartProductCard extends StatelessWidget {
           child: Row(
             children: [
               CartProductCardImage(url: product.image ?? ""),
-              CartProductCardDetails(product: product),
+              CartProductCardDetails(
+                product: product,
+                onNewProductPressed: onNewProductPressed,
+                onMinusProductPressed: onMinusProductPressed,
+              ),
             ],
           ),
         ),

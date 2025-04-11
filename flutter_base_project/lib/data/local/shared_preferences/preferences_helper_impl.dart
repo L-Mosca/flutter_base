@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter_base_project/data/local/shared_preferences/preferences_helper.dart';
 import 'package:flutter_base_project/domain/models/cart/cart.dart';
 import 'package:flutter_base_project/domain/models/payment/credit_card.dart';
-import 'package:flutter_base_project/domain/models/payment/payment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesHelperImpl implements PreferencesHelper {
@@ -58,7 +57,8 @@ class PreferencesHelperImpl implements PreferencesHelper {
   @override
   Future<Cart?> getCart() async {
     final raw = await _getString(key: _cartKey);
-    final jsonData = jsonDecode(raw ?? "");
+    if (raw == null || raw.isEmpty) return null;
+    final jsonData = jsonDecode(raw);
     final cart = Cart.fromJson(jsonData);
     return cart;
   }

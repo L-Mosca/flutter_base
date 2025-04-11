@@ -4,6 +4,7 @@ import 'package:flutter_base_project/domain/models/cart/cart.dart';
 import 'package:flutter_base_project/localization/delegate/localization_extensions.dart';
 import 'package:flutter_base_project/ui/system_design/base_widgets/base_text.dart';
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
+import 'package:intl/intl.dart';
 
 class CartSummaryTotalPrice extends StatelessWidget {
   const CartSummaryTotalPrice({super.key, required this.cart});
@@ -42,8 +43,15 @@ class CartSummaryTotalPrice extends StatelessWidget {
   }
 
   Widget _data(BuildContext context) {
+    final price = cart.payment.totalValue;
+    final formattedPrice = NumberFormat.currency(
+      locale: "pt_BR",
+      decimalDigits: 2,
+      symbol: "R\$",
+    ).format(num.parse("$price"));
+
     return BaseText(
-      text: "RS598.86",
+      text: formattedPrice,
       fontWeight: FontWeight.w700,
       fontColor: context.colors.accent,
     );

@@ -24,7 +24,7 @@ class Payment {
   void updateTotalValue(double newValue) => totalValue = newValue;
 
   Payment.fromJson(Map<String, dynamic> json)
-      : card = json["card"],
+      : card = CreditCard.fromJson(json["card"]),
         times = json["times"],
         totalValue = json["totalValue"];
 

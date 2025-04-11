@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/domain/models/product/product.dart';
 import 'package:flutter_base_project/ui/screens/cart/bloc/cart_bloc.dart';
 import 'package:flutter_base_project/ui/screens/cart/bloc/cart_event.dart';
 import 'package:flutter_base_project/ui/screens/cart/bloc/cart_state.dart';
@@ -20,7 +21,12 @@ class CartPage extends StatelessWidget {
     );
   }
 
-  void _onChange(BuildContext context, CartState state) {}
+  void _onChange(BuildContext context, CartState state) {
+    if (state.listener == CartListener.checkOutSuccess) {
+      Navigator.pop(context);
+      context.read<CartBloc>().add(CartResetListenerEvent());
+    }
+  }
 
   Widget _pageContent(BuildContext context, CartState state) {
     return SafeArea(
@@ -29,7 +35,11 @@ class CartPage extends StatelessWidget {
         body: Column(
           children: [
             BaseLine(),
-            CartContent(state: state),
+            CartContent(
+              state: state,
+              onNewProductPressed: (data) => _newProduct(context, data),
+              onMinusProductPressed: (data) => _removeProduct(context, data),
+            ),
             CartCheckOutButton(
               onCheckOutPressed: () => _onCheckOutPressed(context),
             ),
@@ -37,6 +47,14 @@ class CartPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _newProduct(BuildContext context, Product product) {
+    context.read<CartBloc>().add(CartSumProductEvent(product: product));
+  }
+
+  void _removeProduct(BuildContext context, Product product) {
+    context.read<CartBloc>().add(CartMinusProductEvent(product: product));
   }
 
   void _onCheckOutPressed(BuildContext context) =>

@@ -71,7 +71,8 @@ class ProductDetailPage extends StatelessWidget {
 
   void _onChange(BuildContext context, ProductDetailState state) {
     if (state.listener == ProductDetailListener.addToCartSuccess) {
-      Navigator.pushNamed(context, AppRouter.cartRoute);
+      //Navigator.pushNamed(context, AppRouter.cartRoute);
+      Navigator.popAndPushNamed(context, AppRouter.cartRoute);
       context.read<ProductDetailBloc>().add(ProductDetailResetListenerEvent());
     }
   }

@@ -1,6 +1,5 @@
 import 'package:flutter_base_project/domain/models/cart/cart.dart';
 import 'package:flutter_base_project/domain/models/payment/credit_card.dart';
-import 'package:flutter_base_project/domain/models/product/product.dart';
 
 abstract interface class PreferencesHelper {
   // User

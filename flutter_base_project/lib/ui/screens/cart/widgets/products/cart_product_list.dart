@@ -4,9 +4,16 @@ import 'package:flutter_base_project/ui/screens/cart/widgets/products/cart_produ
 import 'package:flutter_base_project/utils/constants/app_sizes.dart';
 
 class CartProductList extends StatelessWidget {
-  const CartProductList({super.key, required this.list});
+  const CartProductList({
+    super.key,
+    required this.list,
+    required this.onNewProductPressed,
+    required this.onMinusProductPressed,
+  });
 
   final List<Product> list;
+  final void Function(Product) onNewProductPressed;
+  final void Function(Product) onMinusProductPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +26,12 @@ class CartProductList extends StatelessWidget {
         itemCount: list.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          return CartProductCard(product: list[index], index: index);
+          return CartProductCard(
+            product: list[index],
+            index: index,
+            onNewProductPressed: onNewProductPressed,
+            onMinusProductPressed: onMinusProductPressed,
+          );
         },
       ),
     );

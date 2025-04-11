@@ -34,7 +34,7 @@ class CartSummaryTax extends StatelessWidget {
 
   Widget _data(BuildContext context) {
     return BaseText(
-      text: "RS40.00",
+      text: "-",
       fontWeight: FontWeight.w600,
       fontColor: context.colors.cartSummaryText,
     );
