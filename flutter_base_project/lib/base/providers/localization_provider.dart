@@ -26,7 +26,7 @@ class LocalizationProvider extends InheritedWidget {
 /// Run time locale extensions
 /// -> getLocale => Current app locale;
 /// -> setLocale => Change locale and switch supported string resources
-extension StateProviderExtensions on BuildContext {
+extension LocaleProviderExtensions on BuildContext {
   Locale getLocale() {
     final locale = LocalizationProvider.of(this).locale;
     if (locale == null) {
